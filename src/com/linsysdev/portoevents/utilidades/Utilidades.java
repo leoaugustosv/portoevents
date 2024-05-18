@@ -1,7 +1,5 @@
 package com.linsysdev.portoevents.utilidades;
 
-import java.util.Scanner;
-
 public class Utilidades {
 
         public static void exibirAscii() {

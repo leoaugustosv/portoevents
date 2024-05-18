@@ -1,10 +1,10 @@
 package com.linsysdev.portoevents.usuarios;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Usuarios {
@@ -75,8 +75,20 @@ public class Usuarios {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public boolean setSenha(String senha) {
+
+        final String regex = "\\|";
+
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(senha);
+
+        if (matcher.find()) {
+            return false;
+        } else {
+            this.senha = senha;
+            return true;
+        }
+
     }
 
     private boolean jaRegistrado() {
@@ -110,9 +122,10 @@ public class Usuarios {
         boolean cpfValido = false;
         boolean telefoneValido = false;
         boolean senhaValida = false;
+        boolean senhaPermitida = false;
         char tentarNovamente = 'S';
 
-        while ((!cpfValido || !telefoneValido || !senhaValida) && tentarNovamente == 'S') {
+        while ((!cpfValido || !telefoneValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
             System.out.println("Insira as informações para realizar seu cadastro:");
 
             System.out.printf("CPF (sem pontuação) --> ");
@@ -126,7 +139,7 @@ public class Usuarios {
 
             System.out.printf("CONFIRME SUA SENHA --> ");
             if (input_senha.equals(sc.nextLine())) {
-                this.setSenha(input_senha);
+                senhaPermitida = this.setSenha(input_senha);
                 senhaValida = true;
             }
 
@@ -136,11 +149,17 @@ public class Usuarios {
             if (!telefoneValido) {
                 System.out.println("Telefone inválido.");
             }
+
             if (!senhaValida) {
                 System.out.println("Os campos de senha não coincidem.");
             }
 
-            if ((!cpfValido || !telefoneValido || !senhaValida) && tentarNovamente == 'S') {
+            if (!senhaPermitida) {
+                System.out.println(
+                        "\nVocê incluiu um caractere ilegal ('|') em sua senha.\nPor favor, remova esse caractere e tente novamente.\n");
+            }
+
+            if ((!cpfValido || !telefoneValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
                 do {
                     System.out.println("Deseja tentar realizar o cadastro novamente? (S/N)");
                     tentarNovamente = sc.nextLine().toUpperCase().charAt(0);
@@ -155,7 +174,7 @@ public class Usuarios {
 
         }
 
-        if (cpfValido && telefoneValido && senhaValida) {
+        if (cpfValido && telefoneValido && senhaValida && senhaPermitida) {
             if (jaRegistrado()) {
                 System.out.println();
                 System.out.println(
