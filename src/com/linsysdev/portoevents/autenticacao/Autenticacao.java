@@ -1,11 +1,10 @@
 package com.linsysdev.portoevents.autenticacao;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
-import com.linsysdev.portoevents.usuarios.Usuarios;
+import java.util.regex.Pattern;
 
 public class Autenticacao {
     private String cpf;
@@ -33,22 +32,39 @@ public class Autenticacao {
     }
 
     public boolean autenticar() {
-        try {
-            File usersfile = new File("users.data");
-            Scanner fsc = new Scanner(usersfile);
 
-            while (fsc.hasNextLine()) {
-                String data = fsc.nextLine();
-                System.out.println(data);
+        while (true) {
+
+            try {
+
+                File dir = new File("data");
+                dir.mkdirs();
+
+                File usersfile = new File(dir, "users.data");
+                usersfile.createNewFile();
+
+                Scanner fsc = new Scanner(usersfile);
+
+                while (fsc.hasNextLine()) {
+                    String[] userdata = fsc.nextLine().split(Pattern.quote("|"));
+                    if (userdata[0].equals(this.getCpf()) && userdata[1].equals(this.getSenha())) {
+                        System.out.println(System.lineSeparator().repeat(50));
+                        System.out.println("LOGIN REALIZADO COM SUCESSO!");
+                        return true;
+                    }
+                }
+
+                fsc.close();
+                System.out.println("\nLOGIN E/OU SENHA INVÁLIDOS.");
+                return false;
+            } catch (IOException e) {
+                System.out.println("Tentando novamente...");
+                e.printStackTrace();
+                return false;
             }
-
-            fsc.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
         // verificar
-        return false;
+
     }
 
 }

@@ -2,8 +2,10 @@ package com.linsysdev.portoevents.usuarios;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Usuarios {
     private String cpf;
@@ -47,7 +49,7 @@ public class Usuarios {
 
     public boolean setTelefone(String telefone) {
         if (telefone.matches(
-                "/^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$/")) {
+                "^\\d{10,11}$")) {
             this.telefone = telefone;
             return true;
         } else {
@@ -77,7 +79,33 @@ public class Usuarios {
         this.senha = senha;
     }
 
-    public boolean validarCamposCadastro(Scanner sc) {
+    private boolean jaRegistrado() {
+        try {
+            File dir = new File("data");
+            dir.mkdirs();
+
+            File usersfile = new File(dir, "users.data");
+
+            usersfile.createNewFile();
+
+            Scanner fsc = new Scanner(usersfile);
+
+            while (fsc.hasNextLine()) {
+                String[] userdata = fsc.nextLine().split(Pattern.quote("|"));
+                if (userdata[0].equals(this.getCpf())) {
+                    return true;
+                }
+            }
+
+            fsc.close();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+
+    private boolean validarCamposCadastro(Scanner sc) {
 
         boolean cpfValido = false;
         boolean telefoneValido = false;
@@ -112,7 +140,7 @@ public class Usuarios {
                 System.out.println("Os campos de senha não coincidem.");
             }
 
-            if (tentarNovamente == 'S') {
+            if ((!cpfValido || !telefoneValido || !senhaValida) && tentarNovamente == 'S') {
                 do {
                     System.out.println("Deseja tentar realizar o cadastro novamente? (S/N)");
                     tentarNovamente = sc.nextLine().toUpperCase().charAt(0);
@@ -128,24 +156,34 @@ public class Usuarios {
         }
 
         if (cpfValido && telefoneValido && senhaValida) {
-            return true;
+            if (jaRegistrado()) {
+                System.out.println();
+                System.out.println(
+                        ">> ERRO: ESSE USUÁRIO JÁ POSSUI CADASTRO.\nAperte enter e faça login, ou tente novamente.");
+                sc.nextLine();
+                return false;
+            } else {
+                return true;
+            }
+
         } else {
             return false;
         }
-
     }
 
     public void armazenarUsuario() {
         try {
-            File usersFile = new File("users.data");
-            if (usersFile.createNewFile()) {
-                System.out.println("File created: " + usersFile.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
+            File dir = new File("data");
+            dir.mkdirs();
 
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
+            File usersfile = new File(dir, "users.data");
+            usersfile.createNewFile();
+
+            FileWriter fw = new FileWriter(usersfile, true);
+            fw.write(this.getCpf() + "|" + this.getSenha() + "|" + getNome() + "|" + getTelefone()
+                    + System.getProperty("line.separator"));
+            fw.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -153,10 +191,12 @@ public class Usuarios {
     public boolean cadastrar(Scanner sc) {
         boolean validacao = validarCamposCadastro(sc);
         if (validacao == false) {
-            System.out.println("\nCadastro não realizado. Voltando para a tela inicial.");
+            System.out.println("\nCADASTRO NÃO REALIZADO.\nVoltando para a tela inicial...");
             return false;
         } else {
-
+            armazenarUsuario();
+            System.out.println("\n>> CADASTRO REALIZADO COM SUCESSO!\nAperte enter para continuar!");
+            sc.nextLine();
             return true;
         }
     }
