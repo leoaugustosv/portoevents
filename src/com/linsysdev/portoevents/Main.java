@@ -2,6 +2,7 @@ package com.linsysdev.portoevents;
 
 import com.linsysdev.portoevents.utilidades.*;
 import com.linsysdev.portoevents.autenticacao.*;
+import com.linsysdev.portoevents.eventos.Eventos;
 import com.linsysdev.portoevents.usuarios.Usuarios;
 
 import java.util.Scanner;
@@ -71,7 +72,8 @@ public class Main {
 
                         break;
                     case 3:
-
+                        Eventos event = new Eventos();
+                        event.criarEvento();
                         break;
                     case 4:
 
