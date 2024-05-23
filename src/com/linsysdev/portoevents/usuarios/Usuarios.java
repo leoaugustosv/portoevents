@@ -78,7 +78,6 @@ public class Usuarios {
     public boolean setSenha(String senha) {
 
         final String regex = "\\|";
-
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(senha);
 

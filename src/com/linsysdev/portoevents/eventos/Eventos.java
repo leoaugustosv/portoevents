@@ -1,8 +1,10 @@
 package com.linsysdev.portoevents.eventos;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Eventos {
@@ -13,9 +15,9 @@ public class Eventos {
     private String complemento;
     private String bairro;
     private String cidade;
-    private UF uf;
+    private String uf;
     private String cep;
-    private Categoria categoria;
+    private String categoria;
     private LocalDateTime dataHora;
     private Integer duracao;
     private String descricao;
@@ -45,6 +47,7 @@ public class Eventos {
             this.nome = nome;
             return true;
         } else {
+            System.out.println("Insira um nome válido para o evento.");
             return false;
         }
     }
@@ -64,6 +67,9 @@ public class Eventos {
             this.logradouro = logradouro;
             return true;
         } else {
+            System.out.println(
+                    "ERRO: Insira um logradouro válido, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+            System.out.println("EXEMPLO: Avenida das Nações Unidas, 1650");
             return false;
         }
 
@@ -73,32 +79,69 @@ public class Eventos {
         return dataHora;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public boolean setDataHora(LocalDateTime dataHora) {
+        LocalDateTime dataMinima = LocalDateTime.now().plusHours(24);
+        if (dataHora.isBefore(dataMinima)) {
+            System.out.println("ERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
+            return false;
+        }
+
+        try {
+            this.dataHora = dataHora;
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e);
+            return false;
+        }
+
+        return true;
     }
 
     public Integer getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(Integer duracao) {
+    public boolean setDuracao(Integer duracao) {
+        if (duracao < 30) {
+            System.out.println("ERRO: A duração mínima do evento deve ser igual ou superior à 30 minutos.");
+            return false;
+        } else if (duracao > 360) {
+            System.out.println(
+                    "ERRO: No momento, realizamos eventos com duração de até 6 horas (360 minutos).\n Por favor, insira uma duração menor.");
+            return false;
+        }
         this.duracao = duracao;
+        return true;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public boolean setDescricao(String descricao) {
+        if (descricao.isBlank()) {
+            System.out.println("ERRO: Insira uma descrição para o evento.");
+            return false;
+        }
+        if (descricao.length() > 1500) {
+            System.out.println(
+                    "ERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
+            return false;
+        }
         this.descricao = descricao;
+        return true;
     }
 
     public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public boolean setNumero(Integer numero) {
+        if (numero > 99999) {
+            System.out.println("ERRO: Digite um número de endereço válido.");
+            return false;
+        }
         this.numero = numero;
+        return true;
     }
 
     public String getComplemento() {
@@ -106,75 +149,100 @@ public class Eventos {
     }
 
     public void setComplemento(String complemento) {
-        this.complemento = complemento;
+        if (complemento.isBlank()) {
+            System.out.printf("INFO: Complemento não informado; preenchendo em sistema como \"N/A\".");
+            this.complemento = "N/A";
+        } else {
+            this.complemento = complemento;
+        }
+
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public boolean setBairro(String bairro) {
+
+        if (bairro.matches(
+                "^[A-Za-zÀ-ÖØ-öø-ÿ\\s'-]+$")) {
+            this.bairro = bairro;
+            return true;
+        } else {
+            System.out.println("ERRO: Digite um bairro válido.");
+            return false;
+        }
+
     }
 
     public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public boolean setCidade(String cidade) {
+
+        if (cidade.matches(
+                "^[A-Za-zÀ-ÖØ-öø-ÿ\\s'-]+$")) {
+            this.cidade = cidade;
+            return true;
+        } else {
+            System.out.println("ERRO: Digite uma cidade válida.");
+            return false;
+        }
     }
 
-    public UF getUf() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(UF uf) {
-        this.uf = uf;
+    public boolean setUf(String uf) {
+
+        for (UF c : UF.values()) {
+            if (uf.equals(c)) {
+                this.uf = uf;
+                return true;
+            }
+        }
+        System.out.println("ERRO: Digite um UF de estado válido.");
+        return false;
+
     }
 
     public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public boolean setCep(String cep) {
+
+        if (cep.matches(
+                "^\\d{8}$")) {
+            this.cep = cep;
+            return true;
+        } else {
+            System.out.println("ERRO: Digite um CEP válido (sem pontuação).");
+            return false;
+        }
     }
 
-    public Eventos(String nome, String logradouro, Integer numero, String complemento, String bairro, String cidade,
-            UF uf, String cep, Categoria categoria, LocalDateTime dataHora, Integer duracao, String descricao,
-            List<String> participantes) {
-        this.nome = nome;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.uf = uf;
-        this.cep = cep;
-        this.categoria = categoria;
-        this.dataHora = dataHora;
-        this.duracao = duracao;
-        this.descricao = descricao;
-        this.participantes = participantes;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public Eventos(String nome, String logradouro, Integer numero, String bairro, String cidade,
-            UF uf, String cep, Categoria categoria, LocalDateTime dataHora, Integer duracao,
-            List<String> participantes) {
-        this.nome = nome;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = "N/A";
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.uf = uf;
-        this.cep = cep;
-        this.categoria = categoria;
-        this.dataHora = dataHora;
-        this.duracao = duracao;
-        this.descricao = "Esse evento não possui descrição.";
-        this.participantes = participantes;
+    public boolean setCategoria(String category) {
+
+        if (categoria.toUpperCase().equals("ANIVERSÁRIO")) {
+            category = "ANIVERSARIO";
+        }
+
+        for (Categoria c : Categoria.values()) {
+            if (categoria.toUpperCase().equals(c)) {
+                this.categoria = category;
+                return true;
+            }
+        }
+        System.out.println("ERRO: Insira uma categória válida dentre as categorias abaixo: ");
+        return false;
+
     }
 
     public Eventos() {
@@ -186,14 +254,6 @@ public class Eventos {
 
     public void setParticipantes(List<String> participantes) {
         this.participantes = participantes;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 
     public void criarEvento() {
