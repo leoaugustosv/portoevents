@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         boolean loggedIn = false;
-        String currentUser;
+        String currentUser = "";
 
         Scanner sc = new Scanner(System.in, "Cp850");
 
@@ -70,7 +70,7 @@ public class Main {
 
                         break;
                     case "3":
-                        Eventos event = new Eventos();
+                        Eventos event = new Eventos(currentUser);
                         event.criarEvento(sc);
                         break;
                     case "4":

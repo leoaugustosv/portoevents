@@ -1,10 +1,11 @@
 package com.linsysdev.portoevents.eventos;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class Eventos {
     private LocalDateTime dataHora;
     private Integer duracao;
     private String descricao;
-    private List<Usuarios> participantes;
+    private List<String> participantes = new ArrayList<>();
 
     public enum Categoria {
         ANIVERSARIO,
@@ -174,7 +175,7 @@ public class Eventos {
 
     public boolean setComplemento(String complemento) {
         if (complemento.isBlank()) {
-            System.out.printf("\nINFO: Complemento não informado; preenchendo em sistema como \"N/A\".");
+            System.out.printf("\nINFO: Preenchendo complemento em sistema como \"N/A\" (não aplicável).\n");
             this.complemento = "N/A";
             return true;
         }
@@ -289,16 +290,30 @@ public class Eventos {
     public Eventos() {
     }
 
-    public List<Usuarios> getParticipantes() {
+    public Eventos(String currentUser) {
+        this.participantes.add(currentUser);
+    }
+
+    public List<String> getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(List<Usuarios> participantes) {
+    public void setParticipantes(List<String> participantes) {
         this.participantes = participantes;
     }
 
-    public void criarEvento(Scanner sc) {
-        validarCamposEvento(sc);
+    public boolean criarEvento(Scanner sc) {
+        boolean validacao = validarCamposEvento(sc);
+
+        if (validacao == false) {
+            System.out.println("\nEVENTO NÃO CADASTRADO.\nVoltando para a tela inicial...");
+            return false;
+        } else {
+            armazenarEvento();
+            System.out.println("\n>> EVENTO CADASTRADO COM SUCESSO!\nAperte enter para continuar!");
+            sc.nextLine();
+            return true;
+        }
     }
 
     private boolean validarCamposEvento(Scanner sc) {
@@ -328,20 +343,24 @@ public class Eventos {
             } while (!nomeValid);
 
             do {
-                System.out.printf("\nLougradouro:\n\n(EXEMPLO: Avenida das Nações Unidas, 1650)\n--> ");
+                System.out.printf("\nLougradouro:\n\n(EXEMPLO: Avenida das Nações Unidas)\n--> ");
                 logradouroValid = this.setLogradouro(sc.nextLine());
             } while (!logradouroValid);
 
             do {
                 try {
                     System.out.printf("\nNúmero --> ");
-                    numeroValid = this.setNumero(sc.nextInt());
+                    numeroValid = this.setNumero(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
                     System.out.println("\nERRO: Digite um número válido.");
                 }
-                sc.nextLine();
             } while (!numeroValid);
+
+            do {
+                System.out.printf("\nComplemento (aperte Enter caso não haja complemento) --> ");
+                complementoValid = this.setComplemento(sc.nextLine());
+            } while (!complementoValid);
 
             do {
                 System.out.printf("\nBairro --> ");
@@ -390,12 +409,11 @@ public class Eventos {
 
                 try {
                     System.out.printf("Duração (em minutos): --> ");
-                    duracaoValid = this.setDuracao(sc.nextInt());
+                    duracaoValid = this.setDuracao(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
                     System.out.println("\nERRO: Digite um número válido.");
                 }
-                sc.nextLine();
 
             } while (!duracaoValid);
 
@@ -424,9 +442,7 @@ public class Eventos {
         if (nomeValid && logradouroValid && numeroValid && complementoValid && bairroValid && cidadeValid
                 && ufValid && cepValid && categoriaValid && dataHoraValid && duracaoValid && descricaoValid) {
             if (jaRegistrado()) {
-                System.out.println();
-                System.out.println(
-                        ">> ERRO: HORÁRIO PARA EVENTO INDISPONÍVEL.\nAperte enter para continuar.");
+                System.out.println("Aperte enter para continuar.");
                 sc.nextLine();
                 return false;
             } else {
@@ -435,6 +451,26 @@ public class Eventos {
 
         } else {
             return false;
+        }
+    }
+
+    public void armazenarEvento() {
+        try {
+            File dir = new File("data");
+            dir.mkdirs();
+
+            File eventsfile = new File(dir, "events.data");
+
+            eventsfile.createNewFile();
+
+            FileWriter fw = new FileWriter(eventsfile, true);
+            fw.write(this.getNome() + "|" + this.getLogradouro() + "|" + getNumero() + "|" + getComplemento()
+                    + "|" + this.getBairro() + "|" + this.getCidade() + "|" + this.getUf() + "|" + this.getCep()
+                    + "|" + this.getCategoria() + "|" + this.getDataHora() + "|" + this.getDuracao() + "|"
+                    + this.getDescricao() + "|" + this.getParticipantes() + System.getProperty("line.separator"));
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -451,6 +487,7 @@ public class Eventos {
 
             while (fsc.hasNextLine()) {
                 String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
+
                 LocalDateTime horarioInicial = LocalDateTime.parse(eventdata[9]);
                 Integer duracaoEvento = Integer.parseInt(eventdata[10]);
                 LocalDateTime horarioFinal = horarioInicial.plusMinutes(duracaoEvento);
@@ -463,6 +500,16 @@ public class Eventos {
                         &&
                         !(horarioFinalSolicitado.isBefore(horarioFinal)
                                 || horarioFinalSolicitado.isEqual(horarioFinal))) {
+                    System.out.println();
+
+                    System.out.println(
+                            ">> ERRO: HORÁRIO PARA EVENTO INDISPONÍVEL.");
+                    System.out.println(
+                            "O horário do evento que você tentou cadastrar está em conflito com o seguinte evento:\n");
+                    System.out.println("==> NOME: " + eventdata[0]);
+                    System.out.println("==> DATA E HORA: " + horarioInicial + " até "
+                            + horarioFinal.getHour() + ":" + horarioFinal.getMinute());
+                    System.out.println("\nPor favor, escolha uma outra data e hora, e tente novamente.");
                     return true;
                 }
             }
