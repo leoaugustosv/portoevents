@@ -35,7 +35,7 @@ public class Usuarios {
 
     public boolean setNome(String nome) {
         if (nome.matches(
-                "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")) {
+                "^(?=.{1,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$")) {
             this.nome = nome;
             return true;
         } else {
@@ -120,15 +120,19 @@ public class Usuarios {
 
         boolean cpfValido = false;
         boolean telefoneValido = false;
+        boolean nomeValido = false;
         boolean senhaValida = false;
         boolean senhaPermitida = false;
         char tentarNovamente = 'S';
 
-        while ((!cpfValido || !telefoneValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
+        while ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
             System.out.println("Insira as informações para realizar seu cadastro:");
 
             System.out.printf("CPF (sem pontuação) --> ");
             cpfValido = this.setCpf(sc.nextLine());
+
+            System.out.printf("Nome --> ");
+            nomeValido = this.setNome(sc.nextLine());
 
             System.out.printf("Telefone (sem pontuação) --> ");
             telefoneValido = this.setTelefone(sc.nextLine());
@@ -145,6 +149,11 @@ public class Usuarios {
             if (!cpfValido) {
                 System.out.println("CPF inválido.");
             }
+
+            if (!nomeValido) {
+                System.out.println("Nome inválido.");
+            }
+
             if (!telefoneValido) {
                 System.out.println("Telefone inválido.");
             }
@@ -158,7 +167,7 @@ public class Usuarios {
                         "\nVocê incluiu um caractere ilegal ('|') em sua senha.\nPor favor, remova esse caractere e tente novamente.\n");
             }
 
-            if ((!cpfValido || !telefoneValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
+            if ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
                 do {
                     System.out.println("Deseja tentar realizar o cadastro novamente? (S/N)");
                     tentarNovamente = sc.nextLine().toUpperCase().charAt(0);
@@ -173,7 +182,7 @@ public class Usuarios {
 
         }
 
-        if (cpfValido && telefoneValido && senhaValida && senhaPermitida) {
+        if (cpfValido && telefoneValido && nomeValido && senhaValida && senhaPermitida) {
             if (jaRegistrado()) {
                 System.out.println();
                 System.out.println(
@@ -198,7 +207,7 @@ public class Usuarios {
             usersfile.createNewFile();
 
             FileWriter fw = new FileWriter(usersfile, true);
-            fw.write(this.getCpf() + "|" + this.getSenha() + "|" + getNome() + "|" + getTelefone()
+            fw.write(this.getCpf() + "|" + this.getSenha() + "|" + this.getNome() + "|" + this.getTelefone()
                     + System.getProperty("line.separator"));
             fw.close();
         } catch (Exception e) {
