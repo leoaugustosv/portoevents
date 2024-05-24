@@ -24,7 +24,7 @@ public class Main {
                 switch (input) {
                     case 1:
                         System.out.println();
-                        System.out.printf("LOGIN --> ");
+                        System.out.printf("CPF --> ");
                         String input_cpf = sc.nextLine();
                         System.out.printf("SENHA --> ");
                         String input_senha = sc.nextLine();
@@ -73,7 +73,7 @@ public class Main {
                         break;
                     case 3:
                         Eventos event = new Eventos();
-                        event.criarEvento();
+                        event.criarEvento(sc);
                         break;
                     case 4:
 
