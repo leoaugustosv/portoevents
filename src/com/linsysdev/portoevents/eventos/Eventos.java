@@ -65,19 +65,24 @@ public class Eventos {
 
     public boolean setLogradouro(String logradouro) {
 
+        if (logradouro.isBlank()) {
+            System.out.println(
+                    "\nERRO: Insira um logradouro, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+            return false;
+        }
+
         String logradouroCapitalized = Arrays.stream(logradouro.split("\\s"))
                 .map(palavra -> Character.toTitleCase(palavra.charAt(0)) + palavra.substring(1))
                 .collect(Collectors.joining(" "));
 
         if (logradouroCapitalized.matches(
                 "^(Rua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia)\s+[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$")
-                && nome.length() < 300) {
-            this.logradouro = logradouro;
+                && logradouroCapitalized.length() < 300) {
+            this.logradouro = logradouroCapitalized;
             return true;
         } else {
             System.out.println(
                     "\nERRO: Insira um logradouro válido, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
-            System.out.println("EXEMPLO: Avenida das Nações Unidas, 1650");
             return false;
         }
 
@@ -234,8 +239,8 @@ public class Eventos {
     public boolean setUf(String uf) {
 
         for (UF c : UF.values()) {
-            if (uf.equals(c)) {
-                this.uf = uf;
+            if (uf.toUpperCase().equals(c.name())) {
+                this.uf = uf.toUpperCase();
                 return true;
             }
         }
@@ -266,12 +271,12 @@ public class Eventos {
 
     public boolean setCategoria(String category) {
 
-        if (categoria.toUpperCase().equals("ANIVERSÁRIO")) {
+        if (category.toUpperCase().equals("ANIVERSÁRIO")) {
             category = "ANIVERSARIO";
         }
 
         for (Categoria c : Categoria.values()) {
-            if (categoria.toUpperCase().equals(c)) {
+            if (category.toUpperCase().equals(c.name())) {
                 this.categoria = category;
                 return true;
             }
@@ -328,8 +333,13 @@ public class Eventos {
             } while (!logradouroValid);
 
             do {
-                System.out.printf("\nNúmero --> ");
-                numeroValid = this.setNumero(sc.nextInt());
+                try {
+                    System.out.printf("\nNúmero --> ");
+                    numeroValid = this.setNumero(sc.nextInt());
+
+                } catch (Exception e) {
+                    System.out.println("\nERRO: Digite um número válido.");
+                }
                 sc.nextLine();
             } while (!numeroValid);
 
@@ -361,18 +371,32 @@ public class Eventos {
             } while (!categoriaValid);
 
             do {
-                System.out.println("\nData e hora:\n(ex: 23/05/2024 19:00)");
+                System.out.println("\nInforme a data e hora do evento:\n(ex: 23/05/2024 19:00)");
                 System.out.printf("--> ");
                 String dataHoraInserida = sc.nextLine();
-                LocalDateTime dataHoraConvertida = LocalDateTime.parse(dataHoraInserida,
-                        DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+                try {
+                    LocalDateTime dataHoraConvertida = LocalDateTime.parse(dataHoraInserida,
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
-                dataHoraValid = this.setDataHora(dataHoraConvertida);
+                    dataHoraValid = this.setDataHora(dataHoraConvertida);
+                } catch (Exception e) {
+                    System.out.println(
+                            "\nERRO: Formato digitado inválido. Digite um formato válido e tente novamente.");
+                }
+
             } while (!dataHoraValid);
 
             do {
-                System.out.printf("Duração (em minutos): --> ");
-                duracaoValid = this.setDuracao(sc.nextInt());
+
+                try {
+                    System.out.printf("Duração (em minutos): --> ");
+                    duracaoValid = this.setDuracao(sc.nextInt());
+
+                } catch (Exception e) {
+                    System.out.println("\nERRO: Digite um número válido.");
+                }
+                sc.nextLine();
+
             } while (!duracaoValid);
 
             do {

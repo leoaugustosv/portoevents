@@ -12,17 +12,16 @@ public class Main {
         boolean loggedIn = false;
         String currentUser;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in, "Cp850");
 
         while (true) {
             if (!loggedIn) {
                 Utilidades.boasVindas();
                 System.out.printf("--> ");
-                int input = sc.nextInt();
-                sc.nextLine();
+                String input = sc.nextLine();
 
                 switch (input) {
-                    case 1:
+                    case "1":
                         System.out.println();
                         System.out.printf("CPF --> ");
                         String input_cpf = sc.nextLine();
@@ -44,7 +43,7 @@ public class Main {
                             sc.nextLine();
                         }
                         break;
-                    case 2:
+                    case "2":
                         Usuarios newuser = new Usuarios();
                         if (newuser.cadastrar(sc) == false) {
                             continue;
@@ -61,24 +60,23 @@ public class Main {
             } else if (loggedIn) {
                 Utilidades.boasVindasLogado();
                 System.out.printf("--> ");
-                int input = sc.nextInt();
-                sc.nextLine();
+                String input = sc.nextLine();
 
                 switch (input) {
-                    case 1:
+                    case "1":
 
                         break;
-                    case 2:
+                    case "2":
 
                         break;
-                    case 3:
+                    case "3":
                         Eventos event = new Eventos();
                         event.criarEvento(sc);
                         break;
-                    case 4:
+                    case "4":
 
                         break;
-                    case 5:
+                    case "5":
                         loggedIn = false;
                         currentUser = null;
                         System.out.println(System.lineSeparator().repeat(50));
