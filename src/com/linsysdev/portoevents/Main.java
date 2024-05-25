@@ -54,11 +54,10 @@ public class Main {
                         }
                         break;
                     case "3":
-                    System.out.println(System.lineSeparator().repeat(50));
+                        System.out.println(System.lineSeparator().repeat(50));
                         System.out.println(">> FINALIZANDO PROGRAMA...");
                         exit = true;
-                        
-                        
+
                         break;
                     default:
                         System.out.println(">> OPÇÃO DIGITADA INVÁLIDA.");
@@ -72,10 +71,16 @@ public class Main {
 
                 switch (input) {
                     case "1":
-                    Eventos.exibirEventosFuturos();
+                        System.out.println(System.lineSeparator().repeat(50));
+                        Eventos.exibirEventosFuturos();
+                        System.out.println("Aperte enter para retornar ao menu.");
+                        sc.nextLine();
                         break;
                     case "2":
-                    Eventos.exibirEventosPassados();
+                        System.out.println(System.lineSeparator().repeat(50));
+                        Eventos.exibirEventosPassados();
+                        System.out.println("Aperte enter para retornar ao menu.");
+                        sc.nextLine();
                         break;
                     case "3":
                         Eventos event = new Eventos(currentUser);

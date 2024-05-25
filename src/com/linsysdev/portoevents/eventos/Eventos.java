@@ -441,7 +441,7 @@ public class Eventos {
 
         if (nomeValid && logradouroValid && numeroValid && complementoValid && bairroValid && cidadeValid
                 && ufValid && cepValid && categoriaValid && dataHoraValid && duracaoValid && descricaoValid) {
-            if (jaRegistrado()) {
+            if (horarioOcupado()) {
                 System.out.println("Aperte enter para continuar.");
                 sc.nextLine();
                 return false;
@@ -454,16 +454,24 @@ public class Eventos {
         }
     }
 
+    private static File createEventsData() {
+
+        File dir = new File("data");
+        dir.mkdirs();
+        File eventsfile = new File(dir, "events.data");
+        try {
+            eventsfile.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return eventsfile;
+
+    }
+
     public void armazenarEvento() {
         try {
-            File dir = new File("data");
-            dir.mkdirs();
 
-            File eventsfile = new File(dir, "events.data");
-
-            eventsfile.createNewFile();
-
-            FileWriter fw = new FileWriter(eventsfile, true);
+            FileWriter fw = new FileWriter(createEventsData(), true);
             fw.write(this.getNome() + "|" + this.getLogradouro() + "|" + getNumero() + "|" + getComplemento()
                     + "|" + this.getBairro() + "|" + this.getCidade() + "|" + this.getUf() + "|" + this.getCep()
                     + "|" + this.getCategoria() + "|" + this.getDataHora() + "|" + this.getDuracao() + "|"
@@ -474,16 +482,10 @@ public class Eventos {
         }
     }
 
-    private boolean jaRegistrado() {
+    private boolean horarioOcupado() {
         try {
-            File dir = new File("data");
-            dir.mkdirs();
 
-            File eventsfile = new File(dir, "events.data");
-
-            eventsfile.createNewFile();
-
-            Scanner fsc = new Scanner(eventsfile);
+            Scanner fsc = new Scanner(createEventsData());
 
             while (fsc.hasNextLine()) {
                 String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
@@ -522,68 +524,87 @@ public class Eventos {
         }
     }
 
-    public static void exibirEventosFuturos(){
+    public static void exibirEventosFuturos() {
         try {
-            File dir = new File("data");
-            dir.mkdirs();
 
-            File eventsfile = new File(dir, "events.data");
-
-            eventsfile.createNewFile();
-
-            Scanner fsc = new Scanner(eventsfile);
+            Scanner fsc = new Scanner(createEventsData());
 
             if (fsc.hasNextLine()) {
+                List<String[]> listaEventos = new ArrayList<>();
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
 
-                    if(LocalDateTime.parse(eventdata[9]).isAfter(LocalDateTime.now())){
-                        
+                    if (LocalDateTime.parse(eventdata[9]).isAfter(LocalDateTime.now())) {
+                        listaEventos.add(eventdata);
                         contagemEventos++;
                     }
 
-                    
                 }
+
+                for (String[] e : listaEventos) {
+                    System.out.println("==================================");
+                    System.out.println("==> NOME: " + e[0]);
+                    System.out.println();
+                    System.out.println(
+                            "==> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
+                                    + e[5] + ", " + e[6]);
+                    System.out.println();
+                    System.out.println("==> DATA E HORA: " + e[9]);
+                    System.out.println();
+                    System.out.println("==> CATEGORIA: " + e[8]);
+                    System.out.println();
+                    System.out.println("==> DESCRIÇÃO: " + e[11]);
+                    System.out.println("==================================");
+                    System.out.println();
+                }
+
+                System.out.println(">> INFO: Eventos futuros: " + contagemEventos + ".");
+                System.out.println();
             }
 
-    }   catch (IOException e) {
-        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void exibirEventosPassados(){
+    public static void exibirEventosPassados() {
         try {
-            File dir = new File("data");
-            dir.mkdirs();
 
-            File eventsfile = new File(dir, "events.data");
-
-            eventsfile.createNewFile();
-
-            Scanner fsc = new Scanner(eventsfile);
+            Scanner fsc = new Scanner(createEventsData());
 
             if (fsc.hasNextLine()) {
+                List<String[]> listaEventos = new ArrayList<>();
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
 
-                    if(LocalDateTime.parse(eventdata[9]).isBefore(LocalDateTime.now())){
-
+                    if (LocalDateTime.parse(eventdata[9]).isBefore(LocalDateTime.now())) {
+                        listaEventos.add(eventdata);
                         contagemEventos++;
                     }
-
-                    
                 }
-            }
-            else{
+
+                for (String[] e : listaEventos) {
+                    System.out.println("==================================");
+                    System.out.println("==> NOME: " + e[0]);
+                    System.out.println(
+                            "==> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
+                                    + e[5] + ", " + e[6]);
+                    System.out.println("==> DATA E HORA: " + e[9]);
+                    System.out.println("==> CATEGORIA: " + e[8]);
+                    System.out.println("==================================");
+                    System.out.println();
+                }
+
+                System.out.println(">> INFO: Eventos passados: " + contagemEventos + ".");
+                System.out.println();
+            } else {
                 System.out.println("Não há eventos cadastrados.");
             }
 
-    }   catch (IOException e) {
-        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
-
-

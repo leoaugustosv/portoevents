@@ -125,7 +125,8 @@ public class Usuarios {
         boolean senhaPermitida = false;
         char tentarNovamente = 'S';
 
-        while ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
+        while ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida)
+                && tentarNovamente == 'S') {
             System.out.println("Insira as informações para realizar seu cadastro:");
 
             System.out.printf("CPF (sem pontuação) --> ");
@@ -167,7 +168,8 @@ public class Usuarios {
                         "\nVocê incluiu um caractere ilegal ('|') em sua senha.\nPor favor, remova esse caractere e tente novamente.\n");
             }
 
-            if ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida) && tentarNovamente == 'S') {
+            if ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida)
+                    && tentarNovamente == 'S') {
                 do {
                     System.out.println("Deseja tentar realizar o cadastro novamente? (S/N)");
                     tentarNovamente = sc.nextLine().toUpperCase().charAt(0);
