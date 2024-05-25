@@ -9,12 +9,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        boolean exit = false;
         boolean loggedIn = false;
         String currentUser = "";
 
         Scanner sc = new Scanner(System.in, "Cp850");
 
-        while (true) {
+        while (!exit) {
             if (!loggedIn) {
                 Utilidades.boasVindas();
                 System.out.printf("--> ");
@@ -52,6 +53,13 @@ public class Main {
                             currentUser = newuser.getCpf();
                         }
                         break;
+                    case "3":
+                    System.out.println(System.lineSeparator().repeat(50));
+                        System.out.println(">> FINALIZANDO PROGRAMA...");
+                        exit = true;
+                        
+                        
+                        break;
                     default:
                         System.out.println(">> OPÇÃO DIGITADA INVÁLIDA.");
 
@@ -64,10 +72,10 @@ public class Main {
 
                 switch (input) {
                     case "1":
-
+                    Eventos.exibirEventosFuturos();
                         break;
                     case "2":
-
+                    Eventos.exibirEventosPassados();
                         break;
                     case "3":
                         Eventos event = new Eventos(currentUser);
@@ -77,6 +85,9 @@ public class Main {
 
                         break;
                     case "5":
+
+                        break;
+                    case "6":
                         loggedIn = false;
                         currentUser = null;
                         System.out.println(System.lineSeparator().repeat(50));
