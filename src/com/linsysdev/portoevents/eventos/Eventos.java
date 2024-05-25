@@ -544,17 +544,17 @@ public class Eventos {
 
                 for (String[] e : listaEventos) {
                     System.out.println("==================================");
-                    System.out.println("==> NOME: " + e[0]);
-                    System.out.println();
+                    System.out.println("> NOME: " + e[0]);
                     System.out.println(
-                            "==> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
+                            "> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
                                     + e[5] + ", " + e[6]);
                     System.out.println();
-                    System.out.println("==> DATA E HORA: " + e[9]);
+                    System.out.println("> HORA DE INÍCIO: " + e[9]);
+                    System.out.println(
+                            "> HORA DO TÉRMINO: " + LocalDateTime.parse(e[9]).plusMinutes(Integer.parseInt(e[10])));
                     System.out.println();
-                    System.out.println("==> CATEGORIA: " + e[8]);
-                    System.out.println();
-                    System.out.println("==> DESCRIÇÃO: " + e[11]);
+                    System.out.println("> CATEGORIA: " + e[8]);
+                    System.out.println("> DESCRIÇÃO: " + e[11]);
                     System.out.println("==================================");
                     System.out.println();
                 }
@@ -587,12 +587,17 @@ public class Eventos {
 
                 for (String[] e : listaEventos) {
                     System.out.println("==================================");
-                    System.out.println("==> NOME: " + e[0]);
+                    System.out.println("> NOME: " + e[0]);
                     System.out.println(
-                            "==> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
+                            "> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
                                     + e[5] + ", " + e[6]);
-                    System.out.println("==> DATA E HORA: " + e[9]);
-                    System.out.println("==> CATEGORIA: " + e[8]);
+                    System.out.println();
+                    System.out.println("> HORA DE INÍCIO: " + e[9]);
+                    System.out.println(
+                            "> HORA DO TÉRMINO: " + LocalDateTime.parse(e[9]).plusMinutes(Integer.parseInt(e[10])));
+                    System.out.println();
+                    System.out.println("> CATEGORIA: " + e[8]);
+                    System.out.println("> DESCRIÇÃO: " + e[11]);
                     System.out.println("==================================");
                     System.out.println();
                 }
