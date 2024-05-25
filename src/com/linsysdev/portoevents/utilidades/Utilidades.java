@@ -34,6 +34,7 @@ public class Utilidades {
         public static void opcoesDeslogado() {
                 System.out.println("(1) - Login");
                 System.out.println("(2) - Criar conta");
+                System.out.println("(3) - Sair");
                 System.out.println();
         }
 
@@ -42,7 +43,8 @@ public class Utilidades {
                 System.out.println("(2) - Exibir eventos passados");
                 System.out.println("(3) - Criar novo evento");
                 System.out.println("(4) - Participar de um evento");
-                System.out.println("(5) - Sair");
+                System.out.println("(5) - Exibir meus eventos");
+                System.out.println("(6) - Sair");
                 System.out.println();
         }
 

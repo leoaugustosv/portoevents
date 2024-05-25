@@ -191,7 +191,7 @@ public class Eventos {
         final Matcher matcher = pattern.matcher(complemento);
 
         if (matcher.find()) {
-            System.out.println("Caractere inválido \"\\|\" inserido. Remova o caractere e tente novamente.");
+            System.out.println("Caractere inválido \"|\" inserido. Remova o caractere e tente novamente.");
             return false;
         } else {
             this.complemento = complemento;
@@ -522,4 +522,68 @@ public class Eventos {
         }
     }
 
+    public static void exibirEventosFuturos(){
+        try {
+            File dir = new File("data");
+            dir.mkdirs();
+
+            File eventsfile = new File(dir, "events.data");
+
+            eventsfile.createNewFile();
+
+            Scanner fsc = new Scanner(eventsfile);
+
+            if (fsc.hasNextLine()) {
+                int contagemEventos = 0;
+                while (fsc.hasNextLine()) {
+                    String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
+
+                    if(LocalDateTime.parse(eventdata[9]).isAfter(LocalDateTime.now())){
+                        
+                        contagemEventos++;
+                    }
+
+                    
+                }
+            }
+
+    }   catch (IOException e) {
+        e.printStackTrace();
+        }
+    }
+
+    public static void exibirEventosPassados(){
+        try {
+            File dir = new File("data");
+            dir.mkdirs();
+
+            File eventsfile = new File(dir, "events.data");
+
+            eventsfile.createNewFile();
+
+            Scanner fsc = new Scanner(eventsfile);
+
+            if (fsc.hasNextLine()) {
+                int contagemEventos = 0;
+                while (fsc.hasNextLine()) {
+                    String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
+
+                    if(LocalDateTime.parse(eventdata[9]).isBefore(LocalDateTime.now())){
+
+                        contagemEventos++;
+                    }
+
+                    
+                }
+            }
+            else{
+                System.out.println("Não há eventos cadastrados.");
+            }
+
+    }   catch (IOException e) {
+        e.printStackTrace();
+        }
+    }
 }
+
+
