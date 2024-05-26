@@ -3,6 +3,7 @@ package com.linsysdev.portoevents;
 import com.linsysdev.portoevents.utilidades.*;
 import com.linsysdev.portoevents.autenticacao.*;
 import com.linsysdev.portoevents.eventos.Eventos;
+import com.linsysdev.portoevents.eventos.EventosUtil;
 import com.linsysdev.portoevents.usuarios.Usuarios;
 
 import java.util.Scanner;
@@ -72,13 +73,13 @@ public class Main {
                 switch (input) {
                     case "1":
                         System.out.println(System.lineSeparator().repeat(50));
-                        Eventos.exibirEventosFuturos();
+                        EventosUtil.exibirEventosFuturos();
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
                     case "2":
                         System.out.println(System.lineSeparator().repeat(50));
-                        Eventos.exibirEventosPassados();
+                        EventosUtil.exibirEventosPassados();
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
@@ -87,10 +88,10 @@ public class Main {
                         event.criarEvento(sc);
                         break;
                     case "4":
-
+                        EventosUtil.participarEvento(currentUser);
                         break;
                     case "5":
-
+                        EventosUtil.exibirMeusEventos(currentUser);
                         break;
                     case "6":
                         loggedIn = false;

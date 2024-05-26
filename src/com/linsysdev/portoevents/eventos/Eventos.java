@@ -13,8 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.linsysdev.portoevents.usuarios.Usuarios;
-
 public class Eventos {
 
     private String nome;
@@ -454,7 +452,7 @@ public class Eventos {
         }
     }
 
-    private static File createEventsData() {
+    protected static File createEventsData() {
 
         File dir = new File("data");
         dir.mkdirs();
@@ -524,92 +522,4 @@ public class Eventos {
         }
     }
 
-    public static void exibirEventosFuturos() {
-        try {
-
-            Scanner fsc = new Scanner(createEventsData());
-
-            if (fsc.hasNextLine()) {
-                List<String[]> listaEventos = new ArrayList<>();
-                int contagemEventos = 0;
-                while (fsc.hasNextLine()) {
-                    String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-
-                    if (LocalDateTime.parse(eventdata[9]).isAfter(LocalDateTime.now())) {
-                        listaEventos.add(eventdata);
-                        contagemEventos++;
-                    }
-
-                }
-
-                for (String[] e : listaEventos) {
-                    System.out.println("==================================");
-                    System.out.println("> NOME: " + e[0]);
-                    System.out.println(
-                            "> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
-                                    + e[5] + ", " + e[6]);
-                    System.out.println();
-                    System.out.println("> HORA DE INÍCIO: " + e[9]);
-                    System.out.println(
-                            "> HORA DO TÉRMINO: " + LocalDateTime.parse(e[9]).plusMinutes(Integer.parseInt(e[10])));
-                    System.out.println();
-                    System.out.println("> CATEGORIA: " + e[8]);
-                    System.out.println("> DESCRIÇÃO: " + e[11]);
-                    System.out.println("==================================");
-                    System.out.println();
-                }
-
-                System.out.println(">> INFO: Eventos futuros: " + contagemEventos + ".");
-                System.out.println();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void exibirEventosPassados() {
-        try {
-
-            Scanner fsc = new Scanner(createEventsData());
-
-            if (fsc.hasNextLine()) {
-                List<String[]> listaEventos = new ArrayList<>();
-                int contagemEventos = 0;
-                while (fsc.hasNextLine()) {
-                    String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-
-                    if (LocalDateTime.parse(eventdata[9]).isBefore(LocalDateTime.now())) {
-                        listaEventos.add(eventdata);
-                        contagemEventos++;
-                    }
-                }
-
-                for (String[] e : listaEventos) {
-                    System.out.println("==================================");
-                    System.out.println("> NOME: " + e[0]);
-                    System.out.println(
-                            "> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
-                                    + e[5] + ", " + e[6]);
-                    System.out.println();
-                    System.out.println("> HORA DE INÍCIO: " + e[9]);
-                    System.out.println(
-                            "> HORA DO TÉRMINO: " + LocalDateTime.parse(e[9]).plusMinutes(Integer.parseInt(e[10])));
-                    System.out.println();
-                    System.out.println("> CATEGORIA: " + e[8]);
-                    System.out.println("> DESCRIÇÃO: " + e[11]);
-                    System.out.println("==================================");
-                    System.out.println();
-                }
-
-                System.out.println(">> INFO: Eventos passados: " + contagemEventos + ".");
-                System.out.println();
-            } else {
-                System.out.println("Não há eventos cadastrados.");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
