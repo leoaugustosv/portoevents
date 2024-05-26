@@ -56,9 +56,9 @@ public class Main {
                         break;
                     case "3":
                         System.out.println(System.lineSeparator().repeat(50));
-                        System.out.println(">> FINALIZANDO PROGRAMA...");
                         exit = true;
-
+                        System.out.println(">> PROGRAMA FINALIZADO.");
+                        System.out.println();
                         break;
                     default:
                         System.out.println(">> OPÇÃO DIGITADA INVÁLIDA.");
@@ -77,9 +77,33 @@ public class Main {
                         break;
                     case "2":
                         System.out.println(System.lineSeparator().repeat(50));
-                        EventosUtil.exibirMeusEventos(currentUser);
-                        System.out.println("Aperte enter para retornar ao menu.");
-                        sc.nextLine();
+                        System.out.println("Insira a opção desejada para continuar:");
+                        System.out.println();
+                        System.out.println("(1) - Exibir meus eventos futuros");
+                        System.out.println("(2) - Exibir meus eventos passados");
+                        System.out.println("(3) - Voltar");
+                        String inputMeusEventos = sc.nextLine();
+                        switch (inputMeusEventos) {
+                            case "1":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.exibirMeusEventosFuturos(currentUser);
+                                System.out.println("Aperte enter para retornar ao menu.");
+                                sc.nextLine();
+                                break;
+                            case "2":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.exibirMeusEventosPassados(currentUser);
+                                System.out.println("Aperte enter para retornar ao menu.");
+                                sc.nextLine();
+                                break;
+                            case "3":
+                                System.out.println("Aperte enter para retornar ao menu.");
+                                sc.nextLine();
+                                break;
+                            default:
+                                System.out.println(">> OPÇÃO DIGITADA INVÁLIDA.");
+                        }
+                        System.out.println(System.lineSeparator().repeat(50));
                         break;
                     case "3":
                         System.out.println(System.lineSeparator().repeat(50));
