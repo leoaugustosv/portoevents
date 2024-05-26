@@ -72,27 +72,35 @@ public class Main {
 
                 switch (input) {
                     case "1":
+                        Eventos event = new Eventos(currentUser);
+                        event.criarEvento(sc);
+                        break;
+                    case "2":
+                        System.out.println(System.lineSeparator().repeat(50));
+                        EventosUtil.exibirMeusEventos(currentUser);
+                        System.out.println("Aperte enter para retornar ao menu.");
+                        sc.nextLine();
+                        break;
+                    case "3":
+                        System.out.println(System.lineSeparator().repeat(50));
+                        EventosUtil.participarEvento(currentUser);
+                        System.out.println("Aperte enter para retornar ao menu.");
+                        sc.nextLine();
+                        break;
+                    case "4":
                         System.out.println(System.lineSeparator().repeat(50));
                         EventosUtil.exibirEventosFuturos();
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
-                    case "2":
+                    case "5":
+
                         System.out.println(System.lineSeparator().repeat(50));
                         EventosUtil.exibirEventosPassados();
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
-                    case "3":
-                        Eventos event = new Eventos(currentUser);
-                        event.criarEvento(sc);
-                        break;
-                    case "4":
-                        EventosUtil.participarEvento(currentUser);
-                        break;
-                    case "5":
-                        EventosUtil.exibirMeusEventos(currentUser);
-                        break;
+
                     case "6":
                         loggedIn = false;
                         currentUser = null;

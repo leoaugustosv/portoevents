@@ -39,11 +39,11 @@ public class Utilidades {
         }
 
         public static void opcoesLogado() {
-                System.out.println("(1) - Exibir próximos eventos");
-                System.out.println("(2) - Exibir eventos passados");
-                System.out.println("(3) - Criar novo evento");
-                System.out.println("(4) - Participar de um evento");
-                System.out.println("(5) - Exibir meus eventos");
+                System.out.println("(1) - Criar novo evento");
+                System.out.println("(2) - Exibir meus eventos");
+                System.out.println("(3) - Participar de um evento");
+                System.out.println("(4) - Exibir próximos eventos");
+                System.out.println("(5) - Exibir eventos passados");
                 System.out.println("(6) - Sair");
                 System.out.println();
         }

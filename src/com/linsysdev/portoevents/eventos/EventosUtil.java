@@ -34,7 +34,8 @@ public class EventosUtil extends Eventos {
                     listaEventos.sort((String[] o1, String[] o2) -> o1[9].compareTo(o2[9]));
 
                     System.out.println("========= PRÓXIMOS EVENTOS =========");
-                    System.out.println("Aqui estão os próximos eventos, do mais próximo ao mais distante: ");
+                    System.out
+                            .println("Aqui estão os eventos que ainda acontecerão, do mais próximo ao mais distante:");
                     System.out.println();
                     int numeroEvento = 1;
 
@@ -95,7 +96,7 @@ public class EventosUtil extends Eventos {
                     listaEventos.sort((String[] o1, String[] o2) -> o2[9].compareTo(o1[9]));
 
                     System.out.println("========= EVENTOS PASSADOS =========");
-                    System.out.println("Aqui estão os próximos eventos, do mais próximo ao mais distante: ");
+                    System.out.println("Aqui estão os eventos que já aconteceram, do mais recente ao mais antigo:");
                     System.out.println();
                     int numeroEvento = 1;
 
@@ -133,10 +134,12 @@ public class EventosUtil extends Eventos {
     }
 
     public static void participarEvento(String currentUser) {
-
+        // TODO: Criar método para listar eventos futuros em que o usuário ainda esteja
+        // participando, e permitir que ele participe de um deles
     }
 
     public static void exibirMeusEventos(String currentUser) {
-
+        // TODO: Criar método para listar todos os eventos em que o usuário está
+        // participando
     }
 }
