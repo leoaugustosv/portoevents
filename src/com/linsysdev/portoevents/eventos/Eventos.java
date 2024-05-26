@@ -27,7 +27,7 @@ public class Eventos {
     private LocalDateTime dataHora;
     private Integer duracao;
     private String descricao;
-    private List<String> participantes = new ArrayList<>();
+    private String participantes;
 
     public enum Categoria {
         ANIVERSARIO,
@@ -289,14 +289,14 @@ public class Eventos {
     }
 
     public Eventos(String currentUser) {
-        this.participantes.add(currentUser);
+        this.participantes = "," + currentUser;
     }
 
-    public List<String> getParticipantes() {
+    public String getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(List<String> participantes) {
+    public void setParticipantes(String participantes) {
         this.participantes = participantes;
     }
 
