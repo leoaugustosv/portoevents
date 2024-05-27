@@ -126,7 +126,8 @@ public class Main {
                         System.out.println("Insira a opção desejada para continuar:");
                         System.out.println();
                         System.out.println("(1) - Exibir todos os eventos futuros");
-                        System.out.println("(2) - Exibir todos os eventos passados");
+                        System.out.println("(2) - Exibir todos os eventos em andamento");
+                        System.out.println("(3) - Exibir todos os eventos passados");
                         System.out.println("---");
                         System.out.println("(0) - VOLTAR AO MENU");
                         String inputExibirEventos = sc.nextLine();
@@ -136,6 +137,10 @@ public class Main {
                                 EventosUtil.exibirEventosFuturos();
                                 break;
                             case "2":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.exibirEventosAcontecendo();
+                                break;
+                            case "3":
                                 System.out.println(System.lineSeparator().repeat(50));
                                 EventosUtil.exibirEventosPassados();
                                 break;
