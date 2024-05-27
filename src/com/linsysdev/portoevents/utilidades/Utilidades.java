@@ -44,7 +44,7 @@ public class Utilidades {
                 System.out.println("(3) - Participar de um evento");
                 System.out.println("(4) - Exibir próximos eventos");
                 System.out.println("(5) - Exibir eventos passados");
-                System.out.println("(6) - Sair");
+                System.out.println("(6) - Deslogar");
                 System.out.println();
         }
 

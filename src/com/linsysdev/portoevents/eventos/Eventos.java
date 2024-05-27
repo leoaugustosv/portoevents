@@ -382,7 +382,7 @@ public class Eventos {
                 System.out.println("\nInforme qual a categoria do evento: ");
                 System.out.println("ANIVERSÁRIO, CASAMENTO, FORMATURA, BALADA, ESPORTIVO, PALESTRA, BENEFICENTE");
                 System.out.printf("--> ");
-                categoriaValid = this.setCategoria(sc.nextLine());
+                categoriaValid = this.setCategoria(sc.nextLine().toUpperCase());
             } while (!categoriaValid);
 
             do {
