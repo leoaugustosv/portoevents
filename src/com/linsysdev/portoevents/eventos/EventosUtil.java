@@ -1,12 +1,11 @@
 package com.linsysdev.portoevents.eventos;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.LineNumberReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -250,9 +249,12 @@ public class EventosUtil extends Eventos {
                         System.out.println();
                     } else {
 
+                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"));
                         int linha = eventosDisponiveis.get(input - 1);
                         String nome = listaEventos.get(input - 1)[0];
 
+                        linhasEventos.set(linha, linhasEventos.get(linha) + "," + currentUser);
+                        Files.write(Paths.get("data/events.data"), linhasEventos);
                         System.out.println();
                         System.out.println();
                         System.out.println(
@@ -411,7 +413,7 @@ public class EventosUtil extends Eventos {
                         numeroEvento++;
                     }
 
-                    System.out.println(">> INFO: Eventos futuros: " + contagemEventos + ".");
+                    System.out.println(">> INFO: Eventos com a participação confirmada: " + contagemEventos + ".");
                     System.out.println();
                 }
             } else {
