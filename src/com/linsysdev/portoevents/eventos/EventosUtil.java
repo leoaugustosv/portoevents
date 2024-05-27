@@ -153,7 +153,7 @@ public class EventosUtil extends Eventos {
                 int contagemLinhas = 0;
                 List<Integer> eventosDisponiveis = new ArrayList<>();
                 while (fsc.hasNextLine()) {
-
+                    contagemLinhas++;
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
                     String[] participantes = eventdata[12].split(",");
                     boolean estaParticipando = false;
@@ -169,15 +169,13 @@ public class EventosUtil extends Eventos {
                         listaEventos.add(eventdata);
                         contagemEventos++;
                     }
-                    contagemLinhas++;
+
                 }
 
                 if (listaEventos.isEmpty()) {
                     System.out.println(">> INFO: Não há novos eventos disponíveis para você participar.");
                     System.out.println();
                 } else {
-
-                    listaEventos.sort((String[] o1, String[] o2) -> o1[9].compareTo(o2[9]));
 
                     System.out.println("========= EVENTOS DISPONÍVEIS =========");
                     System.out
@@ -253,7 +251,7 @@ public class EventosUtil extends Eventos {
                         int linha = eventosDisponiveis.get(input - 1);
                         String nome = listaEventos.get(input - 1)[0];
 
-                        linhasEventos.set(linha, linhasEventos.get(linha) + "," + currentUser);
+                        linhasEventos.set(linha - 1, linhasEventos.get(linha - 1) + "," + currentUser);
                         Files.write(Paths.get("data/events.data"), linhasEventos);
                         System.out.println();
                         System.out.println();
@@ -416,6 +414,137 @@ public class EventosUtil extends Eventos {
                     System.out.println(">> INFO: Eventos com a participação confirmada: " + contagemEventos + ".");
                     System.out.println();
                 }
+            } else {
+                System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
+                System.out.println();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cancelarParticipacao(String currentUser, Scanner sc) {
+        try {
+
+            Scanner fsc = new Scanner(createEventsData());
+
+            if (fsc.hasNextLine()) {
+                List<String[]> listaEventos = new ArrayList<>();
+                int contagemEventos = 0;
+                int contagemLinhas = 0;
+                List<Integer> eventosDisponiveis = new ArrayList<>();
+                while (fsc.hasNextLine()) {
+                    contagemLinhas++;
+                    String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
+                    String[] participantes = eventdata[12].split(",");
+                    boolean estaParticipando = false;
+
+                    for (String p : participantes) {
+                        if (p.equals(currentUser)) {
+                            estaParticipando = true;
+                            break;
+                        }
+                    }
+                    if (estaParticipando && LocalDateTime.parse(eventdata[9]).isAfter(LocalDateTime.now())) {
+                        eventosDisponiveis.add(contagemLinhas);
+                        listaEventos.add(eventdata);
+                        contagemEventos++;
+                    }
+
+                }
+
+                if (listaEventos.isEmpty()) {
+                    System.out.println(">> INFO: Você ainda não está participando de nenhum evento.");
+                    System.out.println();
+                } else {
+
+                    System.out.println("========= EVENTOS COM PRESENÇA CONFIRMADA =========");
+                    System.out
+                            .println(
+                                    "Aqui estão os detalhes dos eventos disponíveis em que você vai participar:");
+                    System.out.println();
+                    int numeroEvento = 1;
+
+                    for (String[] e : listaEventos) {
+                        System.out.println("EVENTO " + (numeroEvento));
+                        System.out.println("====================================================================");
+                        System.out.println("> NOME: " + e[0]);
+                        System.out.println(
+                                "> ENDEREÇO: " + e[1] + ", " + e[2] + " (" + e[3] + ") - " + e[8] + " - " + e[4] + " - "
+                                        + e[5] + ", " + e[6]);
+                        System.out.println();
+                        System.out.println("> HORA DE INÍCIO: "
+                                + LocalDateTime.parse(e[9]).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                        System.out.println(
+                                "> HORA DO TÉRMINO: " + LocalDateTime.parse(e[9]).plusMinutes(Integer.parseInt(e[10]))
+                                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                        System.out.println();
+                        System.out.println("> CATEGORIA: " + e[8]);
+                        System.out.println("> DESCRIÇÃO: " + e[11]);
+                        System.out.println();
+                        System.out.println("> STATUS: PARTICIPANTE");
+                        System.out.println("====================================================================");
+                        System.out.println();
+                        numeroEvento++;
+                    }
+                    System.out.println(">> INFO: Eventos em que participarei: " + contagemEventos + ".");
+                    System.out.println();
+                    System.out.println("--------------------------------------------------");
+
+                    for (int i = 0; i < eventosDisponiveis.size(); i++) {
+                        System.out.println("(" + (i + 1) + ") - " + listaEventos.get(i)[0] + ": "
+                                + LocalDateTime.parse(listaEventos.get(i)[9])
+                                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                                + " - "
+                                + LocalDateTime.parse(listaEventos.get(i)[9])
+                                        .plusMinutes(Integer.parseInt(listaEventos.get(i)[10]))
+                                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                    System.out.println("---");
+                    System.out.println("(0) - MENU");
+                    System.out.println("--------------------------------------------------");
+
+                    int input = 0;
+                    do {
+                        System.out.println();
+                        System.out.println();
+                        System.out.println(
+                                "Insira o número correspondente ao evento que você deseja cancelar a participação: ");
+                        System.out.println();
+                        System.out.printf("Nº do evento: --> ");
+                        try {
+                            input = sc.nextInt();
+                            sc.nextLine();
+
+                        } catch (Exception e) {
+                            System.out.println();
+                            System.out.println("ERRO: Digite um número válido.");
+                        }
+                    } while (input != 0 && input > eventosDisponiveis.size());
+
+                    if (input == 0) {
+                        System.out.println();
+                        System.out.println();
+                        System.out.println(">> INFO: Voltando ao menu principal...");
+                        System.out.println();
+                    } else {
+
+                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"));
+                        int linha = eventosDisponiveis.get(input - 1);
+                        String nome = listaEventos.get(input - 1)[0];
+
+                        linhasEventos.set(linha - 1, linhasEventos.get(linha - 1).replace("," + currentUser, ""));
+                        Files.write(Paths.get("data/events.data"), linhasEventos);
+                        System.out.println();
+                        System.out.println();
+                        System.out.println(
+                                ">> CONCLUÍDO: Participação cancelada no evento \"" + nome + "\" (id: " + linha
+                                        + ") com sucesso.");
+                        System.out.println();
+                    }
+                }
+
             } else {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();

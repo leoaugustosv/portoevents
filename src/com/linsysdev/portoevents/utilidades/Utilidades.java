@@ -2,7 +2,7 @@ package com.linsysdev.portoevents.utilidades;
 
 public class Utilidades {
 
-        public static void exibirAscii() {
+        public static void exibirLogo() {
 
                 // Ascii Art
                 System.out.println(
@@ -40,7 +40,7 @@ public class Utilidades {
 
         public static void opcoesLogado() {
                 System.out.println("(1) - Criar novo evento");
-                System.out.println("(2) - Exibir meus eventos");
+                System.out.println("(2) - Meus eventos");
                 System.out.println("(3) - Participar de um evento");
                 System.out.println("(4) - Exibir próximos eventos");
                 System.out.println("(5) - Exibir eventos passados");
@@ -49,7 +49,7 @@ public class Utilidades {
         }
 
         public static void boasVindas() {
-                exibirAscii();
+                exibirLogo();
                 System.out.println("============================================");
                 System.out.println("Bem-vindo ao sistema PortoEvents v1.0!");
                 System.out.println("============================================");
@@ -60,7 +60,7 @@ public class Utilidades {
 
         public static void boasVindasLogado() {
                 System.out.println(System.lineSeparator().repeat(50));
-                exibirAscii();
+                exibirLogo();
                 System.out.println("============================================");
                 System.out.println("Bem-vindo ao sistema PortoEvents v1.0!");
                 System.out.println("============================================");

@@ -82,7 +82,8 @@ public class Main {
                         System.out.println();
                         System.out.println("(1) - Exibir meus eventos futuros");
                         System.out.println("(2) - Exibir meus eventos passados");
-                        System.out.println("(3) - VOLTAR AO MENU");
+                        System.out.println("(3) - Cancelar participação em um evento");
+                        System.out.println("(0) - VOLTAR AO MENU");
                         String inputMeusEventos = sc.nextLine();
                         switch (inputMeusEventos) {
                             case "1":
@@ -98,6 +99,12 @@ public class Main {
                                 sc.nextLine();
                                 break;
                             case "3":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.cancelarParticipacao(currentUser, sc);
+                                System.out.println("Aperte enter para retornar ao menu.");
+                                sc.nextLine();
+                                break;
+                            case "0":
                                 System.out.println();
                                 System.out.println("Aperte enter para retornar ao menu.");
                                 sc.nextLine();
