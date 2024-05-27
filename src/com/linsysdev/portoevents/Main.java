@@ -83,6 +83,7 @@ public class Main {
                         System.out.println("(1) - Exibir meus eventos futuros");
                         System.out.println("(2) - Exibir meus eventos passados");
                         System.out.println("(3) - Cancelar participação em um evento");
+                        System.out.println("---");
                         System.out.println("(0) - VOLTAR AO MENU");
                         String inputMeusEventos = sc.nextLine();
                         switch (inputMeusEventos) {
@@ -122,19 +123,30 @@ public class Main {
                         break;
                     case "4":
                         System.out.println(System.lineSeparator().repeat(50));
-                        EventosUtil.exibirEventosFuturos();
+                        System.out.println("Insira a opção desejada para continuar:");
+                        System.out.println();
+                        System.out.println("(1) - Exibir todos os eventos futuros");
+                        System.out.println("(2) - Exibir todos os eventos passados");
+                        System.out.println("---");
+                        System.out.println("(0) - VOLTAR AO MENU");
+                        String inputExibirEventos = sc.nextLine();
+                        switch (inputExibirEventos) {
+                            case "1":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.exibirEventosFuturos();
+                                break;
+                            case "2":
+                                System.out.println(System.lineSeparator().repeat(50));
+                                EventosUtil.exibirEventosPassados();
+                                break;
+                            case "0":
+                                break;
+
+                        }
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
                     case "5":
-
-                        System.out.println(System.lineSeparator().repeat(50));
-                        EventosUtil.exibirEventosPassados();
-                        System.out.println("Aperte enter para retornar ao menu.");
-                        sc.nextLine();
-                        break;
-
-                    case "6":
                         loggedIn = false;
                         currentUser = null;
                         System.out.println(System.lineSeparator().repeat(50));
