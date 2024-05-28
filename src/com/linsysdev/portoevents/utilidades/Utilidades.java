@@ -3,7 +3,7 @@ package com.linsysdev.portoevents.utilidades;
 public class Utilidades {
 
         // LOGO DO PORTO EVENTS
-        public static void exibirLogo() {
+        private static void exibirLogo() {
 
                 System.out.println(
                                 "                                __                                                          __                    ");
@@ -33,14 +33,14 @@ public class Utilidades {
 
         // METODOS PARA EXIBICAO DE OPCOES
 
-        public static void opcoesDeslogado() {
+        private static void opcoesDeslogado() {
                 System.out.println("(1) - Login");
                 System.out.println("(2) - Criar conta");
                 System.out.println("(3) - Sair");
                 System.out.println();
         }
 
-        public static void opcoesLogado() {
+        private static void opcoesLogado() {
                 System.out.println("(1) - Criar novo evento");
                 System.out.println("(2) - Meus eventos");
                 System.out.println("(3) - Participar de um evento");

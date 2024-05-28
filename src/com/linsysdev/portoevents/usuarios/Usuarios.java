@@ -67,17 +67,6 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(String cpf, String senha) {
-        this.cpf = cpf;
-        this.senha = senha;
-    }
-
-    public Usuarios(String cpf, String nome, String telefone) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.telefone = telefone;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -229,7 +218,7 @@ public class Usuarios {
     }
 
     // METODO PARA ARMAZENAR USUARIO EM ARQUIVO .DATA
-    public void armazenarUsuario() {
+    private void armazenarUsuario() {
         try {
             File dir = new File("data");
             dir.mkdirs();

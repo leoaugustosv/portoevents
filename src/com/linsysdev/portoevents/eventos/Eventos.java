@@ -491,7 +491,7 @@ public class Eventos {
     }
 
     // METODO PARA ARMAZENAR DADOS INSERIDOS NO ARQUIVO
-    public void armazenarEvento() {
+    private void armazenarEvento() {
         try {
 
             FileWriter fw = new FileWriter(createEventsData(), true);
