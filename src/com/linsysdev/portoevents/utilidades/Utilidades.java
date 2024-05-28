@@ -2,9 +2,9 @@ package com.linsysdev.portoevents.utilidades;
 
 public class Utilidades {
 
+        // LOGO DO PORTO EVENTS
         public static void exibirLogo() {
 
-                // Ascii Art
                 System.out.println(
                                 "                                __                                                          __                    ");
                 System.out.println(
@@ -30,6 +30,8 @@ public class Utilidades {
                 System.out.println(
                                 "$$/\n                                                                                                                ");
         }
+
+        // METODOS PARA EXIBICAO DE OPCOES
 
         public static void opcoesDeslogado() {
                 System.out.println("(1) - Login");

@@ -11,6 +11,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class EventosUtil extends Eventos {
+
+    // EXIBIR TODOS OS EVENTOS FUTUROS
     public static void exibirEventosFuturos() {
         try {
 
@@ -32,6 +34,7 @@ public class EventosUtil extends Eventos {
                 if (listaEventos.isEmpty()) {
                     System.out.println(">> INFO: Não constam eventos futuros em sistema.");
                     System.out.println();
+
                 } else {
 
                     listaEventos.sort((String[] o1, String[] o2) -> o1[9].compareTo(o2[9]));
@@ -76,6 +79,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // EXIBIR TODOS OS EVENTOS PASSADOS
     public static void exibirEventosPassados() {
         try {
 
@@ -142,6 +146,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // PARTICIPAR DE UM EVENTO FUTURO
     public static void participarEvento(String currentUser, Scanner sc) {
         try {
 
@@ -272,6 +277,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO JA PARTICIPOU
     public static void exibirMeusEventosPassados(String currentUser) {
         try {
 
@@ -349,6 +355,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ
     public static void exibirMeusEventosFuturos(String currentUser) {
         try {
 
@@ -424,6 +431,8 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ, E PERMITIR CANCELAR
+    // PARTICIPACAO EM UM DELES
     public static void cancelarParticipacao(String currentUser, Scanner sc) {
         try {
 
@@ -555,6 +564,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
+    // EXIBIR TODOS OS EVENTOS QUE ESTAO ACONTECENDO AGORA
     public static void exibirEventosAcontecendo() {
         try {
 

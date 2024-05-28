@@ -20,7 +20,7 @@ public class Usuarios {
     }
 
     public boolean setCpf(String cpf) {
-
+        // VALIDACAO VIA REGEX
         if (cpf.matches(
                 "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")) {
             this.cpf = cpf;
@@ -36,7 +36,7 @@ public class Usuarios {
     }
 
     public boolean setNome(String nome) {
-
+        // VALIDACAO VIA REGEX
         if (nome.matches(
                 "^(?=.{1,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$")) {
             String nomeCapitalized = Arrays.stream(nome.split("\\s"))
@@ -54,6 +54,7 @@ public class Usuarios {
     }
 
     public boolean setTelefone(String telefone) {
+        // VALIDACAO VIA REGEX
         if (telefone.matches(
                 "^\\d{10,11}$")) {
             this.telefone = telefone;
@@ -82,11 +83,12 @@ public class Usuarios {
     }
 
     public boolean setSenha(String senha) {
-
+        // VALIDACAO DE CAMPO VAZIO
         if (senha.isBlank()) {
             return false;
         }
 
+        // VALIDACAO DE CARACTERE ILEGAL
         final String regex = "\\|";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(senha);
@@ -100,6 +102,7 @@ public class Usuarios {
 
     }
 
+    // VERIFICAR SE USUARIO JÁ TEM CONTA
     private boolean jaRegistrado() {
         try {
             File dir = new File("data");
@@ -126,6 +129,7 @@ public class Usuarios {
         }
     }
 
+    // VALIDACAO DE CADASTRO DAS INFORMACOES INSERIDAS PELO USER
     private boolean validarCamposCadastro(Scanner sc) {
 
         boolean cpfValido = false;
@@ -163,6 +167,8 @@ public class Usuarios {
             }
 
             System.out.println();
+
+            // MENSAGENS DE ERRO
 
             if (!cpfValido) {
                 System.out.println("CPF inválido.");
@@ -222,6 +228,7 @@ public class Usuarios {
         }
     }
 
+    // METODO PARA ARMAZENAR USUARIO EM ARQUIVO .DATA
     public void armazenarUsuario() {
         try {
             File dir = new File("data");
@@ -239,6 +246,7 @@ public class Usuarios {
         }
     }
 
+    // METODO CHAMADO PELA CLASSE MAIN
     public boolean cadastrar(Scanner sc) {
         boolean validacao = validarCamposCadastro(sc);
         if (validacao == false) {
@@ -252,6 +260,7 @@ public class Usuarios {
         }
     }
 
+    // METODO DE LOGIN CHAMADO PELA CLASSE MAIN
     public static boolean autenticar(String cpf, String senha) {
         while (true) {
 

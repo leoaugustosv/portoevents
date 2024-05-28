@@ -46,6 +46,7 @@ public class Eventos {
     }
 
     public boolean setNome(String nome) {
+        // VALIDACAO VIA REGEX
         if (nome.matches(
                 "^[\\p{L}0-9\\s.,'’\"“”?!:;()-]+$") && nome.length() < 300) {
             this.nome = nome;
@@ -62,16 +63,19 @@ public class Eventos {
 
     public boolean setLogradouro(String logradouro) {
 
+        // VALIDACAO DE CAMPO VAZIO
         if (logradouro.isBlank()) {
             System.out.println(
                     "\nERRO: Insira um logradouro, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
             return false;
         }
 
+        // CAPITALIZAR LOGRADOURO
         String logradouroCapitalized = Arrays.stream(logradouro.split("\\s"))
                 .map(palavra -> Character.toTitleCase(palavra.charAt(0)) + palavra.substring(1))
                 .collect(Collectors.joining(" "));
 
+        // VALIDACAO VIA REGEX
         if (logradouroCapitalized.matches(
                 "^(Rua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia)\s+[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$")
                 && logradouroCapitalized.length() < 300) {
@@ -90,6 +94,7 @@ public class Eventos {
     }
 
     public boolean setDataHora(LocalDateTime dataHora) {
+        // VALIDACAO DE ANTECEDENCIA DE EVENTO (24 HRS)
         LocalDateTime dataMinima = LocalDateTime.now().plusHours(24);
         if (dataHora.isBefore(dataMinima)) {
             System.out.println("\nERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
@@ -111,6 +116,7 @@ public class Eventos {
     }
 
     public boolean setDuracao(Integer duracao) {
+        // VALIDACAO DE DURACAO MIN-MAX DE EVENTO
         if (duracao < 30) {
             System.out.println("\nERRO: A duração mínima do evento deve ser igual ou superior à 30 minutos.");
             return false;
@@ -129,16 +135,20 @@ public class Eventos {
 
     public boolean setDescricao(String descricao) {
 
+        // VALIDACAO DE CAMPO VAZIO
         if (descricao.isBlank()) {
             System.out.println("\nERRO: Insira uma descrição para o evento.");
             return false;
         }
+
+        // VALIDACAO DE DESCRICAO MUITO GRANDE
         if (descricao.length() > 1500) {
             System.out.println(
                     "\nERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
             return false;
         }
 
+        // VALIDACAO DE CARACTERE ILEGAL
         final String regex = "\\|";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(descricao);
@@ -157,6 +167,7 @@ public class Eventos {
     }
 
     public boolean setNumero(Integer numero) {
+        // VALIDACAO DE NUMERO MAX
         if (numero > 99999) {
             System.out.println("\nERRO: Digite um número de endereço válido.");
             return false;
@@ -170,18 +181,21 @@ public class Eventos {
     }
 
     public boolean setComplemento(String complemento) {
+        // VALIDACAO DE CAMPO VAZIO
         if (complemento.isBlank()) {
             System.out.printf("\nINFO: Preenchendo complemento em sistema como \"N/A\" (não aplicável).\n");
             this.complemento = "N/A";
             return true;
         }
 
+        // VALIDACAO DE COMPLEMENTO MUITO GRANDE
         if (complemento.length() > 1500) {
             System.out.println(
                     "\nERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
             return false;
         }
 
+        // VALIDACAO DE CARACTERE ILEGAL
         final String regex = "\\|";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(complemento);
@@ -202,6 +216,7 @@ public class Eventos {
 
     public boolean setBairro(String bairro) {
 
+        // VALIDACAO VIA REGEX
         if (bairro.matches(
                 "^[A-Za-zÀ-ÖØ-öø-ÿ\\s'-]+$")) {
             this.bairro = bairro;
@@ -219,6 +234,7 @@ public class Eventos {
 
     public boolean setCidade(String cidade) {
 
+        // VALIDACAO VIA REGEX
         if (cidade.matches(
                 "^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$")) {
             this.cidade = cidade;
@@ -235,6 +251,7 @@ public class Eventos {
 
     public boolean setUf(String uf) {
 
+        // VALIDACAO DE UFS DELIMITADOS
         for (UF c : UF.values()) {
             if (uf.toUpperCase().equals(c.name())) {
                 this.uf = uf.toUpperCase();
@@ -252,6 +269,7 @@ public class Eventos {
 
     public boolean setCep(String cep) {
 
+        // VALIDACAO VIA REGEX
         if (cep.matches(
                 "^\\d{8}$")) {
             this.cep = cep;
@@ -267,6 +285,8 @@ public class Eventos {
     }
 
     public boolean setCategoria(String category) {
+
+        // VALIDACAO DE CATEGORIAS DELIMITADAS
 
         if (category.toUpperCase().equals("ANIVERSÁRIO")) {
             category = "ANIVERSARIO";
@@ -299,6 +319,9 @@ public class Eventos {
     }
 
     public boolean criarEvento(Scanner sc) {
+
+        // METODO CHAMADO PELA CLASSE MAIN
+
         boolean validacao = validarCamposEvento(sc);
 
         if (validacao == false) {
@@ -313,6 +336,8 @@ public class Eventos {
     }
 
     private boolean validarCamposEvento(Scanner sc) {
+
+        // METODO DE CADASTRO DE TODOS OS CAMPOS
 
         boolean nomeValid = false;
         boolean logradouroValid = false;
@@ -450,6 +475,7 @@ public class Eventos {
         }
     }
 
+    // METODO PARA CRIAR ARQUIVO DE EVENTOS
     protected static File createEventsData() {
 
         File dir = new File("data");
@@ -464,6 +490,7 @@ public class Eventos {
 
     }
 
+    // METODO PARA ARMAZENAR DADOS INSERIDOS NO ARQUIVO
     public void armazenarEvento() {
         try {
 
@@ -478,6 +505,7 @@ public class Eventos {
         }
     }
 
+    // VALIDACAO DE HORARIO DO EVENTO
     private boolean horarioOcupado() {
         try {
 

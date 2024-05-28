@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
 
+        // INICIALIZAR VARIAVEIS GLOBAIS
         boolean exit = false;
         boolean loggedIn = false;
         String currentUser = "";
@@ -17,6 +18,8 @@ public class Main {
         Scanner sc = new Scanner(System.in, "Cp850");
 
         while (!exit) {
+
+            // OPCOES DO USUARIO DESLOGADO
             if (!loggedIn) {
                 Utilidades.boasVindas();
                 System.out.printf("--> ");
@@ -66,15 +69,20 @@ public class Main {
                 }
 
             } else if (loggedIn) {
+                // OPCOES DO USUARIO DESLOGADO
                 Utilidades.boasVindasLogado();
                 System.out.printf("--> ");
                 String input = sc.nextLine();
 
                 switch (input) {
+
+                    // CRIAR EVENTOS
                     case "1":
                         Eventos event = new Eventos(currentUser);
                         event.criarEvento(sc);
                         break;
+
+                    // GERENCIAR MEUS EVENTOS
                     case "2":
                         System.out.println(System.lineSeparator().repeat(50));
                         System.out.println("Insira a opção desejada para continuar:");
@@ -114,12 +122,16 @@ public class Main {
                         }
                         System.out.println(System.lineSeparator().repeat(50));
                         break;
+
+                    // PARTICIPAR DE UM EVENTO
                     case "3":
                         System.out.println(System.lineSeparator().repeat(50));
                         EventosUtil.participarEvento(currentUser, sc);
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
+
+                    // EXIBIR EVENTOS CRIADOS, PASSADOS E ACONTECENDO AGORA
                     case "4":
                         System.out.println(System.lineSeparator().repeat(50));
                         System.out.println("Insira a opção desejada para continuar:");
@@ -150,6 +162,8 @@ public class Main {
                         System.out.println("Aperte enter para retornar ao menu.");
                         sc.nextLine();
                         break;
+
+                    // LOGOUT
                     case "5":
                         loggedIn = false;
                         currentUser = null;
