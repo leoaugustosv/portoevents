@@ -70,7 +70,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,7 +136,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -266,7 +266,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -343,7 +343,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -418,7 +418,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -549,7 +549,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -619,7 +619,7 @@ public class EventosUtil extends Eventos {
                 System.out.println(">> INFO: Não existem eventos cadastrados em sistema.");
                 System.out.println();
             }
-
+            fsc.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

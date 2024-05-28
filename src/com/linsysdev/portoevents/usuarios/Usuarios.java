@@ -252,4 +252,38 @@ public class Usuarios {
         }
     }
 
+    public static boolean autenticar(String cpf, String senha) {
+        while (true) {
+
+            try {
+
+                File dir = new File("data");
+                dir.mkdirs();
+
+                File usersfile = new File(dir, "users.data");
+                usersfile.createNewFile();
+
+                Scanner fsc = new Scanner(usersfile);
+
+                while (fsc.hasNextLine()) {
+                    String[] userdata = fsc.nextLine().split(Pattern.quote("|"));
+                    if (userdata[0].equals(cpf) && userdata[1].equals(senha)) {
+                        System.out.println(System.lineSeparator().repeat(50));
+                        System.out.println("LOGIN REALIZADO COM SUCESSO!");
+                        return true;
+                    }
+                }
+
+                fsc.close();
+                System.out.println("\nLOGIN E/OU SENHA INVÁLIDOS.");
+                return false;
+            } catch (IOException e) {
+                System.out.println("Tentando novamente...");
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+    }
+
 }

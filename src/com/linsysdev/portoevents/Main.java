@@ -1,7 +1,6 @@
 package com.linsysdev.portoevents;
 
 import com.linsysdev.portoevents.utilidades.*;
-import com.linsysdev.portoevents.autenticacao.*;
 import com.linsysdev.portoevents.eventos.Eventos;
 import com.linsysdev.portoevents.eventos.EventosUtil;
 import com.linsysdev.portoevents.usuarios.Usuarios;
@@ -31,16 +30,16 @@ public class Main {
                         System.out.printf("SENHA --> ");
                         String input_senha = sc.nextLine();
 
-                        Autenticacao auth = new Autenticacao(input_cpf, input_senha);
+                        boolean auth = Usuarios.autenticar(input_cpf, input_senha);
 
-                        if (auth.autenticar() == false) {
+                        if (auth == false) {
                             System.out.println();
                             System.out.println("Aperte enter para continuar.");
                             sc.nextLine();
                             continue;
                         } else {
                             loggedIn = true;
-                            currentUser = auth.getCpf();
+                            currentUser = input_cpf;
                             System.out.println();
                             System.out.println("Aperte enter para continuar.");
                             sc.nextLine();
