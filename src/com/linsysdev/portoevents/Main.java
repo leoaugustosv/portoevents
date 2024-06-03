@@ -15,7 +15,7 @@ public class Main {
         boolean loggedIn = false;
         String currentUser = "";
 
-        Scanner sc = new Scanner(System.in, "Cp850");
+        Scanner sc = new Scanner(System.in, "ISO-8859-1");
 
         while (!exit) {
 
@@ -69,7 +69,7 @@ public class Main {
                 }
 
             } else if (loggedIn) {
-                // OPCOES DO USUARIO DESLOGADO
+                // OPCOES DO USUARIO LOGADO
                 Utilidades.boasVindasLogado();
                 System.out.printf("--> ");
                 String input = sc.nextLine();

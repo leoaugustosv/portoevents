@@ -1,6 +1,7 @@
 package com.linsysdev.portoevents.eventos;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -160,7 +161,13 @@ public class EventosUtil extends Eventos {
                 while (fsc.hasNextLine()) {
                     contagemLinhas++;
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = eventdata[12].split(",");
+                    String[] participantes = null;
+                    try {
+                        participantes = eventdata[12].split(",");
+                    } catch (Exception e) {
+                        
+                        continue;
+                    }
                     boolean estaParticipando = false;
 
                     for (String p : participantes) {
@@ -288,7 +295,13 @@ public class EventosUtil extends Eventos {
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = eventdata[12].split(",");
+                    String[] participantes = null;
+                    try {
+                        participantes = eventdata[12].split(",");
+                    } catch (Exception e) {
+                        
+                        continue;
+                    }
                     boolean estaParticipando = false;
 
                     for (String p : participantes) {
@@ -366,7 +379,14 @@ public class EventosUtil extends Eventos {
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = eventdata[12].split(",");
+                    String[] participantes = null;
+                    try {
+                        participantes = eventdata[12].split(",");
+                    } catch (Exception e) {
+                        
+                        continue;
+                    }
+                    
                     boolean estaParticipando = false;
 
                     for (String p : participantes) {
@@ -446,7 +466,13 @@ public class EventosUtil extends Eventos {
                 while (fsc.hasNextLine()) {
                     contagemLinhas++;
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = eventdata[12].split(",");
+                    String[] participantes = null;
+                    try {
+                        participantes = eventdata[12].split(",");
+                    } catch (Exception e) {
+                        
+                        continue;
+                    }
                     boolean estaParticipando = false;
 
                     for (String p : participantes) {
@@ -539,7 +565,7 @@ public class EventosUtil extends Eventos {
                         System.out.println();
                     } else {
 
-                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"));
+                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"),StandardCharsets.ISO_8859_1);
                         int linha = eventosDisponiveis.get(input - 1);
                         String nome = listaEventos.get(input - 1)[0];
 
