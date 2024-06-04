@@ -161,12 +161,11 @@ public class EventosUtil extends Eventos {
                 while (fsc.hasNextLine()) {
                     contagemLinhas++;
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = null;
+                    String[] participantes = new String[0];
                     try {
                         participantes = eventdata[12].split(",");
                     } catch (Exception e) {
                         
-                        continue;
                     }
                     boolean estaParticipando = false;
 
@@ -295,7 +294,7 @@ public class EventosUtil extends Eventos {
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = null;
+                    String[] participantes = new String[0];
                     try {
                         participantes = eventdata[12].split(",");
                     } catch (Exception e) {
@@ -379,7 +378,7 @@ public class EventosUtil extends Eventos {
                 int contagemEventos = 0;
                 while (fsc.hasNextLine()) {
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = null;
+                    String[] participantes = new String[0];
                     try {
                         participantes = eventdata[12].split(",");
                     } catch (Exception e) {
@@ -466,7 +465,7 @@ public class EventosUtil extends Eventos {
                 while (fsc.hasNextLine()) {
                     contagemLinhas++;
                     String[] eventdata = fsc.nextLine().split(Pattern.quote("|"));
-                    String[] participantes = null;
+                    String[] participantes = new String[0];
                     try {
                         participantes = eventdata[12].split(",");
                     } catch (Exception e) {

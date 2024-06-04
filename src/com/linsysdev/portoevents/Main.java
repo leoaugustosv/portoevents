@@ -37,7 +37,7 @@ public class Main {
 
                         if (auth == false) {
                             System.out.println();
-                            System.out.println("Aperte enter para continuar.");
+                            System.out.println("Aperte enter p1 1ara continuar.");
                             sc.nextLine();
                             continue;
                         } else {
