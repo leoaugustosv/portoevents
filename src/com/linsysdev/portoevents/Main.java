@@ -15,7 +15,7 @@ public class Main {
         boolean loggedIn = false;
         String currentUser = "";
 
-        Scanner sc = new Scanner(System.in, "ISO-8859-1");
+        Scanner sc = new Scanner(System.in, "cp850");
 
         while (!exit) {
 
@@ -37,7 +37,7 @@ public class Main {
 
                         if (auth == false) {
                             System.out.println();
-                            System.out.println("Aperte enter p1 1ara continuar.");
+                            System.out.println("Aperte enter para continuar.");
                             sc.nextLine();
                             continue;
                         } else {
@@ -87,9 +87,9 @@ public class Main {
                         System.out.println(System.lineSeparator().repeat(50));
                         System.out.println("Insira a opção desejada para continuar:");
                         System.out.println();
-                        System.out.println("(1) - Exibir meus eventos futuros");
-                        System.out.println("(2) - Exibir meus eventos passados");
-                        System.out.println("(3) - Cancelar participação em um evento");
+                        System.out.println("(1) - Meus eventos futuros");
+                        System.out.println("(2) - Meus eventos passados");
+                        System.out.println("(3) - Exibir e cancelar participação em um evento");
                         System.out.println("---");
                         System.out.println("(0) - VOLTAR AO MENU");
                         String inputMeusEventos = sc.nextLine();

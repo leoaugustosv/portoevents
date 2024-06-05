@@ -52,7 +52,7 @@ public class Eventos {
             this.nome = nome;
             return true;
         } else {
-            System.out.println("\nERRO: Insira um nome válido para o evento.");
+            System.out.println("\n>>> ERRO: Insira um nome válido para o evento.");
             return false;
         }
     }
@@ -66,7 +66,7 @@ public class Eventos {
         // VALIDACAO DE CAMPO VAZIO
         if (logradouro.isBlank()) {
             System.out.println(
-                    "\nERRO: Insira um logradouro, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+                    "\n>>> ERRO: Insira um logradouro, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
             return false;
         }
 
@@ -83,7 +83,7 @@ public class Eventos {
             return true;
         } else {
             System.out.println(
-                    "\nERRO: Insira um logradouro válido, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+                    "\n>>> ERRO: Insira um logradouro válido, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
             return false;
         }
 
@@ -97,14 +97,14 @@ public class Eventos {
         // VALIDACAO DE ANTECEDENCIA DE EVENTO (24 HRS)
         LocalDateTime dataMinima = LocalDateTime.now().plusHours(24);
         if (dataHora.isBefore(dataMinima)) {
-            System.out.println("\nERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
+            System.out.println("\n>>> ERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
             return false;
         }
 
         try {
             this.dataHora = dataHora;
         } catch (Exception e) {
-            System.out.println("\nERRO: " + e);
+            System.out.println("\n>>> ERRO: " + e);
             return false;
         }
 
@@ -118,11 +118,11 @@ public class Eventos {
     public boolean setDuracao(Integer duracao) {
         // VALIDACAO DE DURACAO MIN-MAX DE EVENTO
         if (duracao < 30) {
-            System.out.println("\nERRO: A duração mínima do evento deve ser igual ou superior à 30 minutos.");
+            System.out.println("\n>>> ERRO: A duração mínima do evento deve ser igual ou superior à 30 minutos.");
             return false;
         } else if (duracao > 360) {
             System.out.println(
-                    "\nERRO: No momento, realizamos eventos com duração de até 6 horas (360 minutos).\n Por favor, insira uma duração menor.");
+                    "\n>>> ERRO: No momento, realizamos eventos com duração de até 6 horas (360 minutos).\n Por favor, insira uma duração menor.");
             return false;
         }
         this.duracao = duracao;
@@ -137,14 +137,14 @@ public class Eventos {
 
         // VALIDACAO DE CAMPO VAZIO
         if (descricao.isBlank()) {
-            System.out.println("\nERRO: Insira uma descrição para o evento.");
+            System.out.println("\n>>> ERRO: Insira uma descrição para o evento.");
             return false;
         }
 
         // VALIDACAO DE DESCRICAO MUITO GRANDE
         if (descricao.length() > 1500) {
             System.out.println(
-                    "\nERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
+                    "\n>>> ERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
             return false;
         }
 
@@ -154,7 +154,7 @@ public class Eventos {
         final Matcher matcher = pattern.matcher(descricao);
 
         if (matcher.find()) {
-            System.out.println("\nERRO: Caractere inválido \"\\|\" inserido. Remova o caractere e tente novamente.");
+            System.out.println("\n>>> ERRO: Caractere inválido \"\\|\" inserido. Remova o caractere e tente novamente.");
             return false;
         } else {
             this.descricao = descricao;
@@ -169,7 +169,7 @@ public class Eventos {
     public boolean setNumero(Integer numero) {
         // VALIDACAO DE NUMERO MAX
         if (numero > 99999) {
-            System.out.println("\nERRO: Digite um número de endereço válido.");
+            System.out.println("\n>>> ERRO: Digite um número de endereço válido.");
             return false;
         }
         this.numero = numero;
@@ -191,7 +191,7 @@ public class Eventos {
         // VALIDACAO DE COMPLEMENTO MUITO GRANDE
         if (complemento.length() > 1500) {
             System.out.println(
-                    "\nERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
+                    "\n>>> ERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
             return false;
         }
 
@@ -222,7 +222,7 @@ public class Eventos {
             this.bairro = bairro;
             return true;
         } else {
-            System.out.println("\nERRO: Digite um bairro válido.");
+            System.out.println("\n>>> ERRO: Digite um bairro válido.");
             return false;
         }
 
@@ -240,7 +240,7 @@ public class Eventos {
             this.cidade = cidade;
             return true;
         } else {
-            System.out.println("\nERRO: Digite uma cidade válida.");
+            System.out.println("\n>>> ERRO: Digite uma cidade válida.");
             return false;
         }
     }
@@ -258,7 +258,7 @@ public class Eventos {
                 return true;
             }
         }
-        System.out.println("\nERRO: Digite um UF de estado válido.");
+        System.out.println("\n>>> ERRO: Digite um UF de estado válido.");
         return false;
 
     }
@@ -275,7 +275,7 @@ public class Eventos {
             this.cep = cep;
             return true;
         } else {
-            System.out.println("\nERRO: Digite um CEP válido (sem pontuação).");
+            System.out.println("\n>>> ERRO: Digite um CEP válido (sem pontuação).");
             return false;
         }
     }
@@ -298,7 +298,7 @@ public class Eventos {
                 return true;
             }
         }
-        System.out.println("\nERRO: Insira uma categória válida dentre as categorias abaixo: ");
+        System.out.println("\n>>> ERRO: Insira uma categória válida dentre as categorias abaixo: ");
         return false;
 
     }
@@ -374,7 +374,7 @@ public class Eventos {
                     numeroValid = this.setNumero(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
-                    System.out.println("\nERRO: Digite um número válido.");
+                    System.out.println("\n>>> ERRO: Digite um número válido.");
                 }
             } while (!numeroValid);
 
@@ -421,7 +421,7 @@ public class Eventos {
                     dataHoraValid = this.setDataHora(dataHoraConvertida);
                 } catch (Exception e) {
                     System.out.println(
-                            "\nERRO: Formato digitado inválido. Digite um formato válido e tente novamente.");
+                            "\n>>> ERRO: Formato digitado inválido. Digite um formato válido e tente novamente.");
                 }
 
             } while (!dataHoraValid);
@@ -433,7 +433,7 @@ public class Eventos {
                     duracaoValid = this.setDuracao(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
-                    System.out.println("\nERRO: Digite um número válido.");
+                    System.out.println("\n>>> ERRO: Digite um número válido.");
                 }
 
             } while (!duracaoValid);
@@ -529,7 +529,7 @@ public class Eventos {
                     System.out.println();
 
                     System.out.println(
-                            ">> ERRO: HORÁRIO PARA EVENTO INDISPONÍVEL.");
+                            ">> >>> ERRO: HORÁRIO PARA EVENTO INDISPONÍVEL.");
                     System.out.println(
                             "O horário do evento que você tentou cadastrar está em conflito com o seguinte evento:\n");
                     System.out.println("==> NOME: " + eventdata[0]);

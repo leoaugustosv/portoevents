@@ -5,6 +5,8 @@ public class Utilidades {
         // LOGO DO PORTO EVENTS
         private static void exibirLogo() {
 
+                
+
                 System.out.println(
                                 "                                __                                                          __                    ");
                 System.out.println(
@@ -44,7 +46,7 @@ public class Utilidades {
                 System.out.println("(1) - Criar novo evento");
                 System.out.println("(2) - Meus eventos");
                 System.out.println("(3) - Participar de um evento");
-                System.out.println("(4) - Exibir todos os eventos");
+                System.out.println("(4) - Ver todos os eventos");
                 System.out.println("(5) - Deslogar");
                 System.out.println();
         }

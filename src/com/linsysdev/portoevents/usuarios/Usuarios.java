@@ -205,7 +205,7 @@ public class Usuarios {
             if (jaRegistrado()) {
                 System.out.println();
                 System.out.println(
-                        ">> ERRO: ESSE USUÁRIO JÁ POSSUI CADASTRO.\nAperte enter e faça login, ou tente novamente.");
+                        ">>> ERRO: ESSE USUÁRIO JÁ POSSUI CADASTRO.\nAperte enter e faça login, ou tente novamente.");
                 sc.nextLine();
                 return false;
             } else {
