@@ -1,4 +1,4 @@
-package com.linsysdev.portoevents;
+package com.linsysdev.portoevents.main;
 
 import com.linsysdev.portoevents.utilidades.*;
 import com.linsysdev.portoevents.eventos.Eventos;
