@@ -351,23 +351,47 @@ public class Eventos {
         boolean dataHoraValid = false;
         boolean duracaoValid = false;
         boolean descricaoValid = false;
+        char confirmInput = 'N';
         char tentarNovamente = 'S';
 
         while ((!nomeValid || !logradouroValid || !numeroValid || !complementoValid || !bairroValid || !cidadeValid
                 || !ufValid || !cepValid || !categoriaValid || !dataHoraValid || !duracaoValid || !descricaoValid)
                 && tentarNovamente == 'S') {
-            System.out.println("Insira as informações pedidas abaixo para cadastrar um evento:\n");
-
+            
             do {
-                System.out.printf("Nome do evento --> ");
-                nomeValid = this.setNome(sc.nextLine());
-            } while (!nomeValid);
+            try{
+            System.out.println(">>> CONFIRMAÇÃO: Tem certeza que deseja criar um novo evento? (S/N)");
+            confirmInput = sc.nextLine().toUpperCase().charAt(0);
+            } catch (Exception e) {
+            confirmInput = Character.MIN_VALUE;
+            }
+        } while (confirmInput != 'N' && confirmInput != 'S');
+            
+            if (confirmInput == 'N') {
+                break;
+            }
 
+            System.out.println(System.lineSeparator().repeat(50));
+            System.out.println(">>> INFO: Insira as informações pedidas abaixo para cadastrar um evento:");
+            System.out.println();
+            System.out.println();
+
+            // NOME DO EVENTO
+        
+            do {
+            
+            System.out.printf("Nome do evento --> ");
+            nomeValid = this.setNome(sc.nextLine());
+            } while (!nomeValid);
+                
+                // LOGRADOURO
             do {
                 System.out.printf("\nLougradouro:\n\n(EXEMPLO: Avenida das Nações Unidas)\n--> ");
                 logradouroValid = this.setLogradouro(sc.nextLine());
             } while (!logradouroValid);
 
+
+            // NÚMERO
             do {
                 try {
                     System.out.printf("\nNúmero --> ");
@@ -378,31 +402,37 @@ public class Eventos {
                 }
             } while (!numeroValid);
 
+            // COMPLEMENTO
             do {
                 System.out.printf("\nComplemento (aperte Enter caso não haja complemento) --> ");
                 complementoValid = this.setComplemento(sc.nextLine());
             } while (!complementoValid);
 
+            // BAIRRO
             do {
                 System.out.printf("\nBairro --> ");
                 bairroValid = this.setBairro(sc.nextLine());
             } while (!bairroValid);
 
+            // CIDADE
             do {
                 System.out.printf("\nCidade --> ");
                 cidadeValid = this.setCidade(sc.nextLine());
             } while (!cidadeValid);
 
+            // UF
             do {
                 System.out.printf("\nUF (ex: SP) --> ");
                 ufValid = this.setUf(sc.nextLine());
             } while (!ufValid);
 
+            // CEP
             do {
                 System.out.printf("\nCEP (sem pontuação) --> ");
                 cepValid = this.setCep(sc.nextLine());
             } while (!cepValid);
 
+            // CATEGORIA
             do {
                 System.out.println("\nInforme qual a categoria do evento: ");
                 System.out.println("ANIVERSÁRIO, CASAMENTO, FORMATURA, BALADA, ESPORTIVO, PALESTRA, BENEFICENTE");
@@ -410,6 +440,7 @@ public class Eventos {
                 categoriaValid = this.setCategoria(sc.nextLine().toUpperCase());
             } while (!categoriaValid);
 
+            // DATA E HORA DO EVENTO
             do {
                 System.out.println("\nInforme a data e hora do evento:\n(ex: 23/05/2024 19:00)");
                 System.out.printf("--> ");
@@ -426,6 +457,8 @@ public class Eventos {
 
             } while (!dataHoraValid);
 
+
+            // DURACAO EM MIN
             do {
 
                 try {
@@ -438,11 +471,14 @@ public class Eventos {
 
             } while (!duracaoValid);
 
+            // DESCRICAO
             do {
                 System.out.printf("Descrição: --> ");
                 descricaoValid = this.setDescricao(sc.nextLine());
             } while (!descricaoValid);
 
+
+            // TENTAR NOVAMENTE
             if ((!nomeValid || !logradouroValid || !numeroValid || !complementoValid || !bairroValid || !cidadeValid
                     || !ufValid || !cepValid || !categoriaValid || !dataHoraValid || !duracaoValid || !descricaoValid)
                     && tentarNovamente == 'S') {
