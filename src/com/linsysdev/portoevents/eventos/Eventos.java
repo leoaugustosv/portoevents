@@ -53,6 +53,8 @@ public class Eventos {
             return true;
         } else {
             System.out.println("\n>>> ERRO: Insira um nome válido para o evento.");
+            System.out.println("---------------------------");
+            System.out.println();
             return false;
         }
     }
@@ -66,7 +68,10 @@ public class Eventos {
         // VALIDACAO DE CAMPO VAZIO
         if (logradouro.isBlank()) {
             System.out.println(
-                    "\n>>> ERRO: Insira um logradouro, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+                    "\n>>> ERRO: Insira um logradouro que comece com um dos prefixos abaixo:");
+                    System.out.println("Rua | Avenida | Travessa | Alameda | Praça | Estrada | Rodovia");
+                    System.out.println("---------------------------");
+            System.out.println();
             return false;
         }
 
@@ -83,7 +88,9 @@ public class Eventos {
             return true;
         } else {
             System.out.println(
-                    "\n>>> ERRO: Insira um logradouro válido, começando com uma das possibilidades abaixo:\nRua|Avenida|Travessa|Alameda|Praça|Estrada|Rodovia");
+                    "\n>>> ERRO: Insira um logradouro VÁLIDO, que comece com um dos prefixos abaixo:");
+                    System.out.println("Rua | Avenida | Travessa | Alameda | Praça | Estrada | Rodovia");
+                    System.out.println("---------------------------");
             return false;
         }
 
@@ -98,6 +105,7 @@ public class Eventos {
         LocalDateTime dataMinima = LocalDateTime.now().plusHours(24);
         if (dataHora.isBefore(dataMinima)) {
             System.out.println("\n>>> ERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
+            System.out.println("---------------------------");
             return false;
         }
 
@@ -119,10 +127,12 @@ public class Eventos {
         // VALIDACAO DE DURACAO MIN-MAX DE EVENTO
         if (duracao < 30) {
             System.out.println("\n>>> ERRO: A duração mínima do evento deve ser igual ou superior à 30 minutos.");
+            System.out.println("---------------------------");
             return false;
         } else if (duracao > 360) {
             System.out.println(
                     "\n>>> ERRO: No momento, realizamos eventos com duração de até 6 horas (360 minutos).\n Por favor, insira uma duração menor.");
+                    System.out.println("---------------------------");
             return false;
         }
         this.duracao = duracao;
@@ -138,6 +148,7 @@ public class Eventos {
         // VALIDACAO DE CAMPO VAZIO
         if (descricao.isBlank()) {
             System.out.println("\n>>> ERRO: Insira uma descrição para o evento.");
+            System.out.println("---------------------------");
             return false;
         }
 
@@ -145,6 +156,7 @@ public class Eventos {
         if (descricao.length() > 1500) {
             System.out.println(
                     "\n>>> ERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
+                    System.out.println("---------------------------");
             return false;
         }
 
@@ -155,6 +167,7 @@ public class Eventos {
 
         if (matcher.find()) {
             System.out.println("\n>>> ERRO: Caractere inválido \"\\|\" inserido. Remova o caractere e tente novamente.");
+            System.out.println("---------------------------");
             return false;
         } else {
             this.descricao = descricao;
@@ -170,6 +183,7 @@ public class Eventos {
         // VALIDACAO DE NUMERO MAX
         if (numero > 99999) {
             System.out.println("\n>>> ERRO: Digite um número de endereço válido.");
+            System.out.println("---------------------------");
             return false;
         }
         this.numero = numero;
@@ -192,6 +206,7 @@ public class Eventos {
         if (complemento.length() > 1500) {
             System.out.println(
                     "\n>>> ERRO: A descrição inserida para o evento é muito grande. Por favor, insira uma descrição com menos de 1500 caracteres.");
+                    System.out.println("---------------------------");
             return false;
         }
 
@@ -202,6 +217,8 @@ public class Eventos {
 
         if (matcher.find()) {
             System.out.println("Caractere inválido \"|\" inserido. Remova o caractere e tente novamente.");
+            System.out.println("---------------------------");
+            System.out.println();
             return false;
         } else {
             this.complemento = complemento;
@@ -223,6 +240,7 @@ public class Eventos {
             return true;
         } else {
             System.out.println("\n>>> ERRO: Digite um bairro válido.");
+            System.out.println("---------------------------");
             return false;
         }
 
@@ -241,6 +259,7 @@ public class Eventos {
             return true;
         } else {
             System.out.println("\n>>> ERRO: Digite uma cidade válida.");
+            System.out.println("---------------------------");
             return false;
         }
     }
@@ -259,6 +278,7 @@ public class Eventos {
             }
         }
         System.out.println("\n>>> ERRO: Digite um UF de estado válido.");
+        System.out.println("---------------------------");
         return false;
 
     }
@@ -276,6 +296,7 @@ public class Eventos {
             return true;
         } else {
             System.out.println("\n>>> ERRO: Digite um CEP válido (sem pontuação).");
+            System.out.println("---------------------------");
             return false;
         }
     }
@@ -298,7 +319,8 @@ public class Eventos {
                 return true;
             }
         }
-        System.out.println("\n>>> ERRO: Insira uma categória válida dentre as categorias abaixo: ");
+        System.out.println("\n>>> ERRO: Insira uma categória válida dentre as categorias informadas.");
+        System.out.println("---------------------------");
         return false;
 
     }
@@ -325,11 +347,11 @@ public class Eventos {
         boolean validacao = validarCamposEvento(sc);
 
         if (validacao == false) {
-            System.out.println("\nEVENTO NÃO CADASTRADO.\nVoltando para a tela inicial...");
+            System.out.println("\n>>> INFO: EVENTO NÃO CADASTRADO.\nVoltando para a tela inicial...");
             return false;
         } else {
             armazenarEvento();
-            System.out.println("\n>> EVENTO CADASTRADO COM SUCESSO!\nAperte enter para continuar!");
+            System.out.println("\n>>> INFO: EVENTO CADASTRADO COM SUCESSO!\nAperte enter para continuar!");
             sc.nextLine();
             return true;
         }
@@ -360,6 +382,7 @@ public class Eventos {
             
             do {
             try{
+                System.out.println(System.lineSeparator().repeat(50));
             System.out.println(">>> CONFIRMAÇÃO: Tem certeza que deseja criar um novo evento? (S/N)");
             confirmInput = sc.nextLine().toUpperCase().charAt(0);
             } catch (Exception e) {
@@ -380,13 +403,17 @@ public class Eventos {
         
             do {
             
-            System.out.printf("Nome do evento --> ");
+            System.out.printf("===> Nome do evento:\n\n(EXEMPLO: Aniversário de 15 anos da Ana)\n--> ");
             nomeValid = this.setNome(sc.nextLine());
             } while (!nomeValid);
                 
                 // LOGRADOURO
             do {
-                System.out.printf("\nLougradouro:\n\n(EXEMPLO: Avenida das Nações Unidas)\n--> ");
+
+                System.out.println("\n\n===> Logradouro: ");
+                System.out.println();
+                System.out.println("(EXEMPLO: Avenida das Nações Unidas | Rodovia Raposo Tavares)");
+                System.out.printf("--> ");
                 logradouroValid = this.setLogradouro(sc.nextLine());
             } while (!logradouroValid);
 
@@ -394,55 +421,60 @@ public class Eventos {
             // NÚMERO
             do {
                 try {
-                    System.out.printf("\nNúmero --> ");
+                    System.out.printf("\n\n===> Número:\n--> ");
                     numeroValid = this.setNumero(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
                     System.out.println("\n>>> ERRO: Digite um número válido.");
+                    System.out.println("---------------------------");
                 }
             } while (!numeroValid);
 
             // COMPLEMENTO
             do {
-                System.out.printf("\nComplemento (aperte Enter caso não haja complemento) --> ");
+                System.out.printf("\n\n===> Complemento:\n\n(aperte Enter caso não haja complemento)\n--> ");
                 complementoValid = this.setComplemento(sc.nextLine());
             } while (!complementoValid);
 
             // BAIRRO
             do {
-                System.out.printf("\nBairro --> ");
+                System.out.printf("\n\n===> Bairro:\n--> ");
                 bairroValid = this.setBairro(sc.nextLine());
             } while (!bairroValid);
 
             // CIDADE
             do {
-                System.out.printf("\nCidade --> ");
+                System.out.printf("\n\n===> Cidade:\n--> ");
                 cidadeValid = this.setCidade(sc.nextLine());
             } while (!cidadeValid);
 
             // UF
             do {
-                System.out.printf("\nUF (ex: SP) --> ");
+                System.out.printf("\n\n===> UF:\n\n(ex: SP)\n--> ");
                 ufValid = this.setUf(sc.nextLine());
             } while (!ufValid);
 
             // CEP
             do {
-                System.out.printf("\nCEP (sem pontuação) --> ");
+                System.out.printf("\n\n===> CEP (sem pontuação):\n\n(ex: 01313020)\n--> ");
                 cepValid = this.setCep(sc.nextLine());
             } while (!cepValid);
 
             // CATEGORIA
             do {
-                System.out.println("\nInforme qual a categoria do evento: ");
-                System.out.println("ANIVERSÁRIO, CASAMENTO, FORMATURA, BALADA, ESPORTIVO, PALESTRA, BENEFICENTE");
+                System.out.println("\n\n===> Categoria do evento: ");
+                System.out.println();
+                System.out.println("Selecione uma: ANIVERSÁRIO, CASAMENTO, FORMATURA, BALADA, ESPORTIVO, PALESTRA, BENEFICENTE");
+                System.out.println();
                 System.out.printf("--> ");
                 categoriaValid = this.setCategoria(sc.nextLine().toUpperCase());
             } while (!categoriaValid);
 
             // DATA E HORA DO EVENTO
             do {
-                System.out.println("\nInforme a data e hora do evento:\n(ex: 23/05/2024 19:00)");
+                LocalDateTime horaSugerida = LocalDateTime.now().plusHours(25);
+                System.out.println("\n\n===> Data e hora do evento:\n");
+                System.out.println("(ex: "+horaSugerida.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+"):\n");
                 System.out.printf("--> ");
                 String dataHoraInserida = sc.nextLine();
                 try {
@@ -462,18 +494,19 @@ public class Eventos {
             do {
 
                 try {
-                    System.out.printf("Duração (em minutos): --> ");
+                    System.out.printf("\n\n===> Duração (em minutos):\n --> ");
                     duracaoValid = this.setDuracao(Integer.parseInt(sc.nextLine()));
 
                 } catch (Exception e) {
                     System.out.println("\n>>> ERRO: Digite um número válido.");
+                    System.out.println("---------------------------");
                 }
 
             } while (!duracaoValid);
 
             // DESCRICAO
             do {
-                System.out.printf("Descrição: --> ");
+                System.out.printf("\n\n===> Descrição:\n\n(máx. 300 caracteres)\n--> ");
                 descricaoValid = this.setDescricao(sc.nextLine());
             } while (!descricaoValid);
 

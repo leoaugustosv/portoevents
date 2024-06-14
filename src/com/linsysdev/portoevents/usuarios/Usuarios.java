@@ -132,6 +132,7 @@ public class Usuarios {
         while ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida)
                 && tentarNovamente == 'S') {
             System.out.println("Insira as informações para realizar seu cadastro:");
+            System.out.println();
 
             System.out.printf("CPF (sem pontuação) --> ");
             cpfValido = this.setCpf(sc.nextLine());
@@ -160,30 +161,31 @@ public class Usuarios {
             // MENSAGENS DE ERRO
 
             if (!cpfValido) {
-                System.out.println("CPF inválido.");
+                System.out.println(">>> ERRO: CPF inválido.");
             }
 
             if (!nomeValido) {
-                System.out.println("Nome inválido.");
+                System.out.println(">>> ERRO: Nome inválido.");
             }
 
             if (!telefoneValido) {
-                System.out.println("Telefone inválido.");
+                System.out.println(">>> ERRO: Telefone inválido.");
             }
 
             if (!senhaValida) {
-                System.out.println("Os campos de senha não coincidem.");
+                System.out.println(">>> ERRO: Os campos de senha não coincidem.");
             }
 
             if (!senhaPermitida) {
                 System.out.println(
-                        "\nVocê incluiu um caractere ilegal ('|') em sua senha, ou ela está em branco.\nPor favor, verifique a senha inserida e tente novamente.\n");
+                        "\n>>> ERRO: Você incluiu um caractere ilegal ('|') em sua senha, ou ela está em branco.\nPor favor, verifique a senha inserida e tente novamente.\n");
             }
 
             if ((!cpfValido || !telefoneValido || !nomeValido || !senhaValida || !senhaPermitida)
                     && tentarNovamente == 'S') {
                 do {
                     try {
+                        System.out.println();
                         System.out.println("Deseja tentar realizar o cadastro novamente? (S/N)");
                         tentarNovamente = sc.nextLine().toUpperCase().charAt(0);
                     } catch (Exception e) {
