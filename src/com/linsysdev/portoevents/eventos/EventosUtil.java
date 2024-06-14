@@ -564,7 +564,7 @@ public class EventosUtil extends Eventos {
                         System.out.println();
                     } else {
 
-                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"),StandardCharsets.ISO_8859_1);
+                        List<String> linhasEventos = Files.readAllLines(Paths.get("data/events.data"));
                         int linha = eventosDisponiveis.get(input - 1);
                         String nome = listaEventos.get(input - 1)[0];
 
