@@ -241,8 +241,7 @@ public class EventosUtil extends Eventos {
                         System.out.println();
                         System.out.printf("Nº do evento: --> ");
                         try {
-                            input = sc.nextInt();
-                            sc.nextLine();
+                            input = Integer.parseInt(sc.nextLine());
 
                         } catch (Exception e) {
                             System.out.println();
@@ -547,8 +546,7 @@ public class EventosUtil extends Eventos {
                         System.out.println();
                         System.out.printf("Nº do evento: --> ");
                         try {
-                            input = sc.nextInt();
-                            sc.nextLine();
+                            input = Integer.parseInt(sc.nextLine());
 
                         } catch (Exception e) {
                             System.out.println();
