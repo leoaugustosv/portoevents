@@ -33,15 +33,20 @@ Esse projeto é um dos requisitos principais para aprovação na UC "Programaç�
 ## Como compilar e executar (Windows)
 
 1. Abra uma janela do CMD e aponte-a para o diretório em que você deseja clonar este repo:
-2. Execute o comando abaixo:
+2. Execute os comandos abaixo para clonar e acessar a pasta raíz:
 
-`git clone https://github.com/leoaugustosv/portoevents.git`
+```
+git clone https://github.com/leoaugustosv/portoevents.git
+cd portoevents
+```
+
 
 3. Execute agora o comando abaixo para executar o script compilador disponibilizado neste repo ("compile.bat"):
 
 `.\compile.bat`
 
-Ou, se preferir, crie você o script compilador, salvando um arquivo .bat com o código abaixo e o colocando na raíz do projeto:
+
+**(OPCIONAL)** Se preferir, crie você o script compilador, salvando um arquivo .bat com o código abaixo e o colocando na raíz do projeto:
 
 ```@echo off
 setlocal enabledelayedexpansion
@@ -55,6 +60,6 @@ endlocal
 
 4. Após executar o arquivo .bat, agora basta executar o código abaixo para iniciar o sistema:
 
-`java -cp src com.linsysdev.portoevents.main.MainClass`
+`java -cp src com.linsysdev.portoevents.main.Main`
 
 Pronto, o programa foi compilado! :)
