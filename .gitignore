@@ -4,3 +4,4 @@ users.data
 /bin
 /.vscode
 *.data
+*.class
