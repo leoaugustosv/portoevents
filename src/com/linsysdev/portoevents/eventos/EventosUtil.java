@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class EventosUtil extends Eventos {
 
-    // EXIBIR TODOS OS EVENTOS FUTUROS
+    // EXIBIR TODOS OS EVENTOS FUTUROS, ORDENANDO DO MAIS RECENTE AO MAIS DISTANTE
     public static void exibirEventosFuturos() {
         try {
 
@@ -87,7 +87,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
-    // EXIBIR TODOS OS EVENTOS PASSADOS
+    // EXIBIR TODOS OS EVENTOS PASSADOS, ORDENANDO DO MAIS RECENTE AO MAIS DISTANTE
     public static void exibirEventosPassados() {
         try {
 
@@ -289,7 +289,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
-    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO JA PARTICIPOU
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO JA PARTICIPOU, ORDENANDO DO MAIS RECENTE AO MAIS DISTANTE
     public static void exibirMeusEventosPassados(String currentUser) {
         try {
 
@@ -373,7 +373,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
-    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ, ORDENANDO DO MAIS PRÓXIMO AO MAIS DISTANTE
     public static void exibirMeusEventosFuturos(String currentUser) {
         try {
 
@@ -456,8 +456,7 @@ public class EventosUtil extends Eventos {
         }
     }
 
-    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ, E PERMITIR CANCELAR
-    // PARTICIPACAO EM UM DELES
+    // EXIBIR TODOS OS EVENTOS EM QUE O USUARIO PARTICIPARÁ, E PERMITIR CANCELAR PARTICIPACAO EM UM DELES
     public static void cancelarParticipacao(String currentUser, Scanner sc) {
         try {
 

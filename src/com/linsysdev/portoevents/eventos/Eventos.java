@@ -110,7 +110,8 @@ public class Eventos {
     }
 
     public boolean setDataHora(LocalDateTime dataHora) {
-        // VALIDACAO DE ANTECEDENCIA DE EVENTO (24 HRS)
+
+        // VALIDACAO DE ANTECEDENCIA DE EVENTO (MIN 24 HRS)
         LocalDateTime dataMinima = LocalDateTime.now().plusHours(24);
         if (dataHora.isBefore(dataMinima)) {
             System.out.println("\n>>> ERRO: O evento precisa ser marcado com antecedência mínima de 24h.");
@@ -351,7 +352,7 @@ public class Eventos {
 
     public boolean criarEvento(Scanner sc) {
 
-        // METODO CHAMADO PELA CLASSE MAIN
+        // METODO DE CRIACAO DE EVENTOS CHAMADO PELA CLASSE MAIN
 
         boolean validacao = validarCamposEvento(sc);
 
@@ -368,7 +369,7 @@ public class Eventos {
 
     private boolean validarCamposEvento(Scanner sc) {
 
-        // METODO DE CADASTRO DE TODOS OS CAMPOS
+        // METODO DE VALIDACAO DE TODOS OS CAMPOS INSERIDOS PELO USER
 
         boolean nomeValid = false;
         boolean logradouroValid = false;
@@ -416,7 +417,7 @@ public class Eventos {
             nomeValid = this.setNome(sc.nextLine());
             } while (!nomeValid);
                 
-                // LOGRADOURO
+            // LOGRADOURO
             do {
 
                 System.out.println("\n\n===> Logradouro: ");
@@ -520,7 +521,7 @@ public class Eventos {
             } while (!descricaoValid);
 
 
-            // TENTAR NOVAMENTE
+            // APRESENTAR OPCAO DE TENTAR NOVAMENTE CASO UMA DAS VALIDACOES FALHE
             if ((!nomeValid || !logradouroValid || !numeroValid || !complementoValid || !bairroValid || !cidadeValid
                     || !ufValid || !cepValid || !categoriaValid || !dataHoraValid || !duracaoValid || !descricaoValid)
                     && tentarNovamente == 'S') {
@@ -538,6 +539,7 @@ public class Eventos {
 
         }
 
+        // VALIDACAO FINAL DOS CAMPOS
         if (nomeValid && logradouroValid && numeroValid && complementoValid && bairroValid && cidadeValid
                 && ufValid && cepValid && categoriaValid && dataHoraValid && duracaoValid && descricaoValid) {
             if (horarioOcupado()) {
@@ -553,7 +555,7 @@ public class Eventos {
         }
     }
 
-    // METODO PARA CRIAR ARQUIVO DE EVENTOS
+    // METODO PARA CRIAR ARQUIVO EVENTS.DATA CASO NAO EXISTA, OU USAR JA EXISTENTE
     protected static File createEventsData() {
 
         File dir = new File("data");

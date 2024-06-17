@@ -126,7 +126,7 @@ public class Usuarios {
         }
     }
 
-    // VALIDACAO DE CADASTRO DAS INFORMACOES INSERIDAS PELO USER
+    // VALIDACAO DE CADASTRO DAS INFORMACOES INSERIDAS PELO USER EM TODOS OS CAMPOS
     private boolean validarCamposCadastro(Scanner sc) {
 
         boolean cpfValido = false;
@@ -211,6 +211,7 @@ public class Usuarios {
 
         }
 
+        // VERIFICACAO FINAL DOS CAMPOS
         if (cpfValido && telefoneValido && nomeValido && senhaValida && senhaPermitida) {
             if (jaRegistrado()) {
                 System.out.println();
@@ -227,7 +228,7 @@ public class Usuarios {
         }
     }
 
-    // METODO PARA ARMAZENAR USUARIO EM ARQUIVO .DATA
+    // METODO PARA ARMAZENAR USUARIO EM ARQUIVO USERS.DATA
     private void armazenarUsuario() {
         try {
             File dir = new File("data");
@@ -245,7 +246,7 @@ public class Usuarios {
         }
     }
 
-    // METODO CHAMADO PELA CLASSE MAIN
+    // METODO DE CADASTRO CHAMADO PELA CLASSE MAIN
     public boolean cadastrar(Scanner sc) {
         boolean validacao = validarCamposCadastro(sc);
         if (validacao == false) {

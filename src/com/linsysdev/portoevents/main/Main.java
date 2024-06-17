@@ -34,6 +34,7 @@ public class Main {
                 String input = sc.nextLine();
 
                 switch (input) {
+                    // LOGIN
                     case "1":
                         System.out.println();
                         System.out.printf("CPF --> ");
@@ -56,6 +57,8 @@ public class Main {
                             sc.nextLine();
                         }
                         break;
+
+                        // CADASTRAR USUARIO
                     case "2":
                         Usuarios newuser = new Usuarios();
                         if (newuser.cadastrar(sc) == false) {
@@ -76,8 +79,9 @@ public class Main {
 
                 }
 
+            // OPCOES DO USUARIO LOGADO
             } else if (loggedIn) {
-                // OPCOES DO USUARIO LOGADO
+
                 Utilidades.boasVindasLogado();
                 System.out.printf("--> ");
                 String input = sc.nextLine();
