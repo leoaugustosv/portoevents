@@ -1,3 +1,11 @@
+/*
+* Desenvolvido pelos alunos:
+* Elton Lopes de Meneses
+* Guilherme Cabral Mendes Mariano
+* Leonardo Augusto Silveira
+* Data da última revisão: 16/06/2024
+*/
+
 package com.linsysdev.portoevents.main;
 
 import com.linsysdev.portoevents.utilidades.*;
